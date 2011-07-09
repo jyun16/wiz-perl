@@ -1,0 +1,13 @@
+{
+    type        => 'mysql',
+    db          => 'test',
+    user        => 'root',
+    log => {
+        stderr  => 1,
+        path    => 'logs/cluster_controller.log',
+    },
+    clusters    => {
+        cluster01   => 'conf/cluster01.pdat',
+        cluster02   => 'conf/cluster02.pdat',
+    },
+}

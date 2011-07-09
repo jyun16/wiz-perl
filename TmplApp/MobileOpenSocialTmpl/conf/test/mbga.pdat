@@ -1,0 +1,5 @@
+{
+    uri_base        => 'http://sb.pf.mbga.jp/',
+    consumer_key    => '',
+    consumer_secret => '',
+}

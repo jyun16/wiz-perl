@@ -1,0 +1,3 @@
+#!/bin/sh
+
+./mysqld_multi.pl -c mysqld_multi.cnf $@

@@ -1,0 +1,7 @@
+---
+calendar:
+  gregorian:
+    ymd:
+      2007-11-28:
+        is_holiday: 1
+        name      : hogehoge

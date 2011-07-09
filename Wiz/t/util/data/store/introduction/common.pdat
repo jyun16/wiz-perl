@@ -1,0 +1,26 @@
+{
+    '&introduction_id' => {
+        item_label  => '紹介ID',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+    },
+    '&introduction_blog_url' => {
+        item_label  => '紹介ブログURL',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 255,
+            size        => 255,
+        },
+    },
+    '&used_flag' => {
+        item_label  => '割引利用状況',
+        type        => 'checkbox',
+        options     => [
+            0   => '済',
+            1   => '未',
+        ],
+    },
+}

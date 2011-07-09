@@ -1,0 +1,6 @@
+{
+    error   => {
+        not_null    => 'Null pointer exception',
+        length      => 'Too long',
+    },
+}

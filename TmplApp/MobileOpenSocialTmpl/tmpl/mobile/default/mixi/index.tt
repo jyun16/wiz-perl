@@ -1,0 +1,28 @@
+[% html = {
+    title       => '',
+    js          => {
+    }
+} %]
+[% INCLUDE 'mobile/include/html_head.tt' %]
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+MOBILE TEMPLATE<br>
+* <a href="[% mixi_uri(base _ 'mixi/auth') %]">Auth</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/location') %]">Location</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/profile') %]">Profile</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/uid') %]">Check UID</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/set_session') %]">Set Session</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/dump_session') %]">Dump Session</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/tt') %]">TT</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/emoji') %]">Emoji from script</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/emoji_tt') %]">Emoji from TT</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/qr') %]">QR code generator</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/cidr') %]">Check CIDR</a><br>
+* <a href="[% mixi_uri(base _ 'mixi/upload') %]">Upload</a><br>
+{emoji:晴れ}<br>
+{emoji:ゴルフ}<br>
+日本語でおｋ<br>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

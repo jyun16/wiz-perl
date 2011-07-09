@@ -1,0 +1,95 @@
+{
+    '&id'   => {
+        item_label  => 'ID',
+        type        => 'text',
+        validation    => {
+            is_number   => 1,
+        },
+    },
+    '&userid'  => {
+        item_label  => 'USERID',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            not_empty           => 1,
+            is_alphabet_number  => 1,
+        },
+    },
+    '&password'  => {
+        item_label  => 'PASSWORD',
+        type        => 'password',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            not_empty   => 1,
+            is_ascii    => 1,
+        },
+    },
+    '&confirm_password'  => {
+        item_label  => 'PASSWORD(confirm)',
+        type        => 'password',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            not_empty   => 1,
+            is_ascii    => 1,
+            equals      => 'password',
+        },
+    },
+    '&email'           => {
+        item_label  => 'E-MAIL',
+        type        => 'email',
+        attribute   => {
+        },
+        validation    => {
+            not_empty => 1,
+        },
+    },
+    '&confirm_email'   => {
+        item_label  => 'E-MAIL(confirm)',
+        type        => 'email',
+        attribute   => {
+        },
+        validation  => {
+            not_empty   => 1,
+            equals      => 'email',
+        },
+    },
+    '&created_time'   => {
+        item_label  => 'CREATED TIME',
+        type            => 'datetime',
+        default         => '',
+        year_order      => 'asc',
+        start_year      => 1941,
+        end_year        => 2012,
+        format          => '',
+        empty           => '-',
+        attribute   => [
+            {  
+                id  => 'created_time_y',
+            },
+            {  
+                id  => 'created_time_m',
+            },
+            {  
+                id  => 'created_time_d',
+            },
+            {  
+                id  => 'created_time_h',
+            },
+            {  
+                id  => 'created_time_mi',
+            },
+            {  
+                id  => 'created_time_s',
+            },
+        ],
+    },
+}

@@ -1,0 +1,8 @@
+{
+    test_cache => {
+        servers => [
+            'localhost:11114',
+            'localhost:11115',
+        ],
+    },
+}

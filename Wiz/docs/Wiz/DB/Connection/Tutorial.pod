@@ -1,0 +1,342 @@
+=head1 NAME
+
+Wiz::DB::Connection::Tutorial - simple tutorial to use Wiz::DB::Connection
+
+=head1 Create Connection
+
+=head2 Simple Connection
+
+The constructor takes as the following argument.
+
+ my %param = (
+     type        => DB_TYPE_MYSQL,
+     db          => 'test',
+     user        => 'root',
+     auto_commit => TRUE,
+     log     => {
+     stderr          => TRUE,
+         stack_dump  => TRUE,
+         path        => 'logs/db.log',
+         level       => 'warn',
+     },
+ );
+
+And you can get a instance of connection by how to do the following.
+
+ $conn = new Wiz::DB::Connection(\%param);
+
+DB_TYPE_MYSQL is constant value.
+This series of module use some constant values.
+You had better C<use Wiz::DB::Constant qw(:all)>.
+
+If you want to use config file, create config file that path is 'conf/config.pdat' as the following.
+
+ {
+     type        => 'mysql',
+     db          => 'test',
+     user        => 'root',
+     auto_commit => TRUE,
+     log     => {
+         stderr      => TRUE,
+         stack_dump  => TRUE,
+         path        => 'logs/db.log',
+         level       => 'warn',
+     },
+ };
+
+And,
+
+ $conn = new Wiz::DB::Connection(_conf => 'conf/config.pdat');
+
+=head1 Connection Configuration
+
+ (
+     type        => DB_TYPE_MYSQL,
+     host        => 'localhost',
+     db          => 'test',
+     user        => 'test',
+     passwd      => 'test',
+     auto_commit => TRUE,
+     die         => FALSE,
+     log     => {
+         path    => 'logs/db.log',
+         stderr  => TRUE,
+     },
+ )
+
+=over 4
+
+=item * type
+
+It specify DB type.
+You can use the following DB_TYPEs.
+
+  DB_TYPE_POSTGRESQL
+  DB_TYPE_MYSQL     
+  DB_TYPE_ORACLE    
+  DB_TYPE_MSSQL     
+  DB_TYPE_ODBC      
+  DB_TYPE_ODBC_MYSQL
+  DB_TYPE_ODBC_MSSQL
+
+This module is mainly coded for MySQL.
+Some functions cannot be used for other DBs.
+
+=item * host, db, user, passwd
+
+ host   ... database host name
+ db     ... database name
+ user   ... database user
+ passwd ... database password
+
+=item * log
+
+See L<Wiz::Log>.
+
+=item * auto_commit
+
+The default value of auto_commit is FALSE.
+
+=item * die
+
+If error, die.
+
+=back
+
+=head2 Pooling
+
+If you use connection pooling, do the following.
+
+ my %param = (
+     type        => DB_TYPE_MYSQL,
+     db          => 'test',
+     user        => 'root',
+     max_active  => 8,
+     min_idle    => 2,
+     max_idle    => 4,
+     log     => {
+         stderr  => TRUE,
+     },
+ );
+
+ $conn = new Wiz::DB::Connection(\%param);
+
+You can get the detail at L<Wiz::DB::ConnectionPool>. 
+
+If you want to change dynamically pooling or not pooling, you had better use L<Wiz::DB::ConnectionFactory>.
+
+=head2 Cluster
+
+If your systems have some databases, you can use L<Wiz::DB::Cluster>.
+
+ my %param = (
+     type                => DB_TYPE_MYSQL,
+     db                  => 'test',
+     user                => 'root',
+     priority_flag       => ENABLE,
+     read_priority_flag  => ENABLE,
+     pooling             => TRUE,
+     log => {
+         stderr => 1,
+     },
+     master  => [
+         {
+             host        => 'master01.db',
+             min_idle    => 4,
+         },
+     ],
+     slave   => [
+         {
+             host        => 'slave01.db',
+             min_idle    => 2,
+         },
+         {
+             host        => 'slave02.db',
+             min_idle    => 2,
+         },
+     ],
+ );
+
+The above config define three databases.
+And you can get connection the following.
+
+ my $cluster = Wiz::DB::Cluster->new(\%param);
+
+ $master_conn = $cluster->get_master;
+ $slave_conn = $cluster->get_slave;
+
+In addition, you can use cluster's cluster by L<Wiz::DB::Cluster::Controller>.
+
+ my %param = (
+     type        => DB_TYPE_MYSQL,
+     db          => 'test',
+     user        => 'root',
+     clusters    => {
+         cluster01   => {
+              master  => [
+                  {
+                      host        => 'cluster01-master01.db',
+                  },
+              ],
+              slave   => [
+                  {
+                      host        => 'cluster01-slave01.db',
+                  },
+                  {
+                      host        => 'cluster01-slave02.db',
+                  },
+              ],
+         },
+         cluster02   => {
+              master  => [
+                  {
+                      host        => 'cluster02-master01.db',
+                  },
+              ],
+              slave   => [
+                  {
+                      host        => 'cluster02-slave01.db',
+                  },
+                  {
+                      host        => 'cluster02-slave02.db',
+                  },
+              ],
+         },
+     },
+ );
+
+ my $cc = new Wiz::DB::Cluster::Controller(\%param);
+
+You can get master connection in the cluster01, cluster02.
+
+ $mconn1 = $cc->get_master('cluster01')
+ $mconn2 = $cc->get_master('cluster02')
+
+If you want to get slave connection.
+
+ $sconn1 = $cc->get_slave('cluster01')
+ $sconn2 = $cc->get_slave('cluster02')
+
+=head1 Use Connection
+
+ my $conn = new Wiz::DB::Connection(\%param);
+
+Create table
+
+ $conn->execute_only(
+     q|CREATE TABLE hoge (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(32)), lastmodify timestamp|);
+
+Insert
+
+ $conn->execute_only(q|INSERT INTO hoge (name) VALUES ('hoge')|);
+ $conn->has_error and die "can't insert ..." . $conn->error;
+
+Or
+
+ $conn->execute(q|INSERT INTO hoge (name) VALUES ('hoge')|) or 
+    die "can't insert ..." . $conn->error;
+
+When you don't need result, then you had better use execute_only method.
+But you need result, then you must use execute method.
+
+Select
+
+ my $rs = $conn->execute('SELECT * FROM hoge');
+ while($rs->next) {
+     warn $rs->get('id');
+     warn $rs->get('name');
+     warn $rs->get('lastmodify');
+ }
+ $rs->close;
+ $conn->close;
+
+The data method returns the all data of current record as hash reference value.
+
+ $rs->data;
+
+If the selected record is a record, retrieve method is useful.
+The method returns a hash reference value that the serected record data.
+It is useful when you search record by primary key and etc.
+
+ # {
+ #     id          => 1,
+ #     name        => 'hoge',
+ #     lastmodify  => '2008-01-01 00:00:00',
+ # }
+ $conn->retrieve(id => 1);
+
+If you want to check that table is exists, the following method is useful.
+
+ $conn->table_exists('table_name');
+
+If the table exists, return TRUE.
+
+If you execute same query some time, you had better use prepared_statement.
+
+ $stmt = $conn->prepared_statement('INSERT INTO hoge (name) VALUES (?)');
+
+for (qw(foo bar)) {
+    $stmt->execute_only($_);
+    if ($conn->has_error) {
+        $conn->rollback;
+        die "can't insert ..." . $conn->error;
+    }
+}
+$conn->commit;
+
+Or
+
+for (qw(foo bar)) {
+    unless ($stmt->execute($_)) {
+        $conn->rollback;
+        die "can't insert ..." . $conn->error;
+    }
+}
+$conn->commit;
+
+When the value of "auto_fommit" is FALSE(default), you must use rollback and commit methods;
+
+ $conn->rollback;
+ $conn->commit;
+
+=head1 AUTHOR
+
+[Module creator] Junichiro NAKAMURA, C<< <jyun16@gmail.com> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008 The Wiz Project. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE WIZ PROJECT ``AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED.  IN NO EVENT SHALL THE WIZ PROJECT OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OROTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are
+those of the authors and should not be interpreted as representing official
+policies, either expressed or implied, of the Wiz Project.
+
+Additionally, the followings are recommended for the developers
+to modify/improve/extend Wiz. Please send modified code/patch to mail list,
+wiz-perl@googlegroups.com.
+The source you sent will be merged into Wiz package.
+We welcome anyone who cooperates with us in developing this software.
+
+We'll invite you to this project's member.

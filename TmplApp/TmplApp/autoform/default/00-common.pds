@@ -1,0 +1,64 @@
+$common = {
+    id => {
+        item_label  => 'ID',
+        type        => 'text',
+    },
+    member_id => {
+        item_label  => 'MEMBER_ID',
+        type        => 'text',
+        attribute   => {
+            size        => 32,
+            maxlength   => 32,
+        },
+    },
+    created_time => {
+        item_label      => '作成日時',
+        type            => 'datetime',
+        default         => undef,
+        year_order      => 'asc',
+        start_year      => 2010,
+        end_year        => 2027,
+        format          => '',
+        empty           => '-',
+        validation    => {
+        },
+        attribute   => [
+            { id  => 'created_time_y', },
+            { id  => 'created_time_m', },
+            { id  => 'created_time_d', },
+            { id  => 'created_time_h', },
+            { id  => 'created_time_mi', },
+            { id  => 'created_time_s', },
+        ],
+    },
+    last_modified    => {
+        item_label      => '更新日時',
+        type            => 'datetime',
+        default         => undef,
+        year_order      => 'asc',
+        start_year      => 2010,
+        end_year        => 2027,
+        format          => '',
+        empty           => '-',
+        validation    => {
+        },
+        attribute   => [
+            { id  => 'last_modified_y', },
+            { id  => 'last_modified_m', },
+            { id  => 'last_modified_d', },
+            { id  => 'last_modified_h', },
+            { id  => 'last_modified_mi', },
+            { id  => 'last_modified_s', },
+        ],
+    },
+};
+
+sub set_attr_id4date_search {
+    my ($data, $name, $target) = @_;
+    my $n = "${name}_end";
+    my @attr;
+    $data->{$n} = clone $data->{$name};
+    $data->{$n}{default} = '';
+    for (@$target) { push @attr, { id => "${n}_$_" }; }
+    $data->{$n}{attribute} = \@attr;
+}

@@ -1,0 +1,37 @@
+[% html = {
+    title       => 'パスワード再設定',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<form action="[% base %]member/modify/password/send" method="POST">
+<div align="center">
+<table cellpadding="0" cellspacing="0" class="input_table">
+    <tr>
+        <th>[% f.item_label("email") %]</th>
+        <td>[% f.tag("email") %]<br />[% errmsg(f.error_message("email")) %]</td>
+    </tr>
+    <tr>
+        <th>[% f.item_label("email") %]を再度確認してください</th>
+        <td>[% f.tag("confirm_email") %]<br />[% errmsg(f.error_message("confirm_email")) %]</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="button">
+            <input type="button" value="戻る" onClick="window.history.back();" />
+            <input type="submit" value="送信" />
+        </td>
+    </tr>
+</table>
+</div>
+</form>
+[% LPROCESS('include/footer.tt') %]
+</body>

@@ -1,0 +1,21 @@
+[% html = {
+    title       => 'パスワード再設定完了',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<div align="center">
+    <h3 class="font_l">パスワード再設定完了</h3><br />
+    お手数ですが再度<a href="[% base %]login">ログインページへ</a>よりログインして下さい。<br />
+</div>
+[% LPROCESS('include/footer.tt') %]
+</body>

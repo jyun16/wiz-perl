@@ -1,0 +1,216 @@
+$register = {
+    txt1 => {
+        item_label  => 'TEXT 1',
+        type        => 'text',
+        default     => '',
+        attribute   => {
+            size        => 32,
+            maxlength   => 32,
+        },
+        validation    => {
+            not_empty    => 1,
+        },
+    },
+    pw1 => {
+        item_label  => 'PASSWORD 1',
+        type        => 'password',
+        attribute   => {
+            size        => 20,
+            maxlength   => 20,
+        },
+    },
+    ta1 => {
+        item_label  => 'TEXTAREA 1',
+        type        => 'textarea',
+        attribute   => {
+            cols        => 80,
+            rows        => 6,
+        },
+        validation    => {
+            -or => [
+                is_number   => 1,
+                is_alphabet => 1,
+            ],
+        },
+        filter          => [
+            line_break  => 1,
+            auto_link   => {
+                target  => 'blank',
+            },
+            z2h         => 1,
+        ],
+    },
+    sel1    => {
+        item_label  => 'SELECT BOX 1',
+        type        => 'select',
+        default     => '2',
+        options     => [
+            ''  => 'SELECT VOID',
+            0   => 'SELECT 0',
+            1   => 'SELECT 1',
+            2   => 'SELECT 2',
+            3   => 'SELECT 3',
+        ],
+        attribute   => {
+        },
+    },
+    msel1   => {
+        item_label  => 'MULTI SELECT BOX 1',
+        type        => 'multiselect',
+        default     => ['', 0, 1, 2],
+        options     => [
+            ''  => 'MULTI SELECT VOID',
+            0   => 'MULTI SELECT 0',
+            1   => 'MULTI SELECT 1',
+            2   => 'MULTI SELECT 2',
+            3   => 'MULTI SELECT 3',
+        ],
+        attribute   => {
+            size        => '5',
+        }
+    },
+    rd1     => {
+        item_label  => 'RADIO BUTTON 1',
+        type        => 'radio',
+        default     => 2,
+        options     => [
+            ''  => 'RADIO VOID',
+            0   => 'RADIO 0',
+            1   => 'RADIO 1',
+            2   => 'RADIO 2',
+            3   => 'RADIO 3',
+        ],
+        attribute   => [{}, {}, { id => 'hoge' }, {}, {}],
+    },
+    rd2     => {
+        item_label  => 'RADIO BUTTON 2',
+        type        => 'radio',
+        default     => 2,
+        options     => [
+            ''  => 'RADIO VOID',
+            0   => 'RADIO 0',
+            1   => 'RADIO 1',
+            2   => 'RADIO 2',
+            3   => 'RADIO 3',
+        ],
+        split       => 1,
+        attribute   => { id => 'hoge' },
+    },
+    chk1     => {
+        item_label  => 'CHECKBOX 1',
+        type        => 'checkbox',
+        default     => [2,3],
+        options     => [
+            ''  => 'CHECKBOX VOID',
+            0   => 'CHECKBOX 0',
+            1   => 'CHECKBOX 1',
+            2   => 'CHECKBOX 2',
+            3   => 'CHECKBOX 3',
+        ],
+        attribute   => [{}, {}, { id => 'hoge' }, {}, {}],
+    },
+    search  => {
+        item_label  => 'SEARCH',
+        for_search  => 1,
+        validation    => {
+            is_number  => 1,
+        },
+    },
+    email   => {
+        item_label  => 'E-MAIL',
+        type        => 'email',
+    },
+    confirm_email   => {
+        item_label  => 'E-MAIL',
+        type        => 'email',
+        validation    => {
+            equals  => 'email',
+        },
+    },
+    first_name  => {
+        item_label  => 'FIRST NAME',
+        type        => 'text',
+    },
+    last_name   => {
+        item_label  => 'LAST NAME',
+        type        => 'text',
+    },
+    name        => {
+        item_label  => 'NAME',
+        joined_value    => [qw(first_name last_name)],
+        validation    => {
+            not_empty    => 1,
+        },
+    },
+    date1   => {
+        item_label      => 'DATE 1',
+        type            => 'datetime',
+        date_only       => 1,
+        # can set 'now' or yyyy-mm-dd hh:MM:ss
+#        default         => '',
+        # default DESC
+#        year_order      => 'asc',
+#        start_year      => 1990,
+        start_year      => 'now',
+        # or now
+        end_year        => 'now',
+        format          => '',
+        attribute   => {
+        },
+        validation    => {
+            smaller     => 'date2',
+        },
+    },
+    date2   => {
+        item_label      => 'DATE 1',
+        type            => 'datetime',
+        date_only       => 1,
+        # can set 'now' or yyyy-mm-dd hh:MM:ss
+#        default         => '',
+        # default DESC
+#        year_order      => 'asc',
+        start_year      => 1990,
+        # or now
+        end_year        => 'now',
+        format          => '',
+        attribute   => {
+        },
+        validation    => {
+#            bigger  => 'date1',
+#            smaller => 'date1',
+        },
+    },
+    time1   => {
+        item_label      => 'TIME 1',
+        type            => 'datetime',
+        time_only       => 1,
+        # can set 'now' or yyyy-mm-dd hh:MM:ss
+        default         => '',
+        # default ASC
+        year_order      => 'desc',
+        start_year      => 1999,
+        # or now
+        end_year        => 2008,
+        format          => '',
+        attribute   => {
+        },
+        validation    => {
+        },
+    },
+    datetime1   => {
+        item_label      => 'DATETIME 1',
+        type            => 'datetime',
+        # can set 'now' or yyyy-mm-dd hh:MM:ss
+        default         => '',
+        # default DESC
+        year_order      => 'asc',
+        start_year      => 1941,
+        # or now
+        end_year        => 2008,
+        format          => '',
+        attribute   => {
+        },
+        validation    => {
+        },
+    },
+};

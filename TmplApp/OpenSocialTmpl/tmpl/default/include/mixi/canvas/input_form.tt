@@ -1,0 +1,6 @@
+Input form: <br>
+<div id='data'></div>
+<input type='text' name='text' id='text'><br>
+<textarea name='textarea' id='textarea'></textarea><br>
+<input type='button' value='save' onClick='saveInputForm();'>
+<input type='button' value='load' onClick='loadInputForm();'>

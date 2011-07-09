@@ -1,0 +1,34 @@
+<script type="text/javascript">
+function onLoadFriends(data) {
+    var viewer = data.get('viewer').getData();
+    var viewerFriends = data.get('viewerFriends').getData();
+    html = new Array();
+    html.push('<ul>');
+    viewerFriends.each(function(person) {
+    if (person.getId()) {
+        html.push('<li><a href="http://mixi.jp/show_friend.pl?id=' + person.getId() + '" target="_blank">' + person.getDisplayName() + '</a></li>');
+    }
+    });
+    html.push('</ul>');
+    document.getElementById('friends').innerHTML = html.join('');
+    gadgets.window.adjustHeight();
+}
+function loadFriends() {
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+    var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+    req.add(req.newFetchPeopleRequest(viewerFriends, {
+        first: 0,
+        max: 10
+    }), 'viewerFriends');
+    req.send(onLoadFriends);
+}
+function init() {
+    loadFriends();
+}
+gadgets.util.registerOnLoadHandler(init);
+</script>
+<div id='main'>
+Your friends:
+<div id='friends'></div>
+</div>

@@ -1,0 +1,25 @@
+mkdir /var/mysqld-multi
+mysql_install_db --datadir=/var/mysqld-multi/1 --user=mysql
+mysql_install_db --datadir=/var/mysqld-multi/2 --user=mysql
+mysql_install_db --datadir=/var/mysqld-multi/3 --user=mysql
+mysql_install_db --datadir=/var/mysqld-multi/4 --user=mysql
+mysql_install_db --datadir=/var/mysqld-multi/5 --user=mysql
+mysql_install_db --datadir=/var/mysqld-multi/6 --user=mysql
+
+GRANT ALL ON *.* TO root@'%';
+GRANT REPLICATION CLIENT                 ON *.* TO 'mmm_monitor'@'%' IDENTIFIED BY 'mmm_monitor';
+GRANT SUPER, REPLICATION CLIENT, PROCESS ON *.* TO 'mmm_agent'@'%' IDENTIFIED BY 'mmm_agent';
+GRANT REPLICATION SLAVE                  ON *.* TO 'replication'@'%' IDENTIFIED BY 'replication';
+FLUSH PRIVILEGES;
+
+SHOW MASTER STATUS;
+
+CHANGE MASTER TO master_host='192.168.xxxx', master_port=3506, master_user='replication', 
+master_password='replication', master_log_file='mysql-bin.000001', master_log_pos=106;
+
+START SLAVE;
+
+Load handler socket
+
+    install plugin handlersocket soname 'handlersocket.so';
+

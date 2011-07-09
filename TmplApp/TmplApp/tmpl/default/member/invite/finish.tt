@@ -1,0 +1,26 @@
+[% html = {
+    title       => '会員登録メール送信完了',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<div align="center">
+<h3 class="font_l">会員登録メール送信完了</h3><br />
+<img src="[% base %]images/material/mail_photo.gif" height="88" width="91" /> <br /><br />
+お客様の入力したメールアドレス[% email %]に登録完了用のメールを送信いたしました。<br />
+<br />
+もしEメールが受信出来ない場合は、お客様の迷惑メールフォルダをご確認ください。
+</div>
+</div>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

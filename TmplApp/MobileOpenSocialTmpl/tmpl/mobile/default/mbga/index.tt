@@ -1,0 +1,34 @@
+[% html = {
+    title       => '',
+    js          => {
+    }
+} %]
+[% INCLUDE 'mobile/include/html_head.tt' %]
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+MOBILE TEMPLATE<br>
+* <a href="[% mbga_uri(base _ 'mbga/auth') %]">Auth</a><br>
+* <a href="location:self?guid=ON&url=[% base _ 'mbga/location' | uri %]">Location</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/profile') %]">Profile</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/payment') %]">Payment</a><br>
+* <a href="diary:self?subject=テストのサブジェクトですよ&body=テストのボディーですよ">日記</a><br>
+* <a href="message:friends?recipient=32715&subject=テストのサブジェクトですよ&body=テストのボディーですよ">{emoji:メール}&nbsp;ﾐﾆﾒ</a><br>
+* <a href="invite:friends?subject=ｶﾓｰﾝ&body=めっさおもれぇからやってﾐｿでｹﾞｿ">友達招待</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/goto_error') %]">Error</a><br>
+<hr>
+* <a href="[% mbga_uri(base _ 'mbga/uid') %]">Check UID</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/set_session') %]">Set Session</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/dump_session') %]">Dump Session</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/tt') %]">TT</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/emoji') %]">Emoji from script</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/emoji_tt') %]">Emoji from TT</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/qr') %]">QR code generator</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/cidr') %]">Check CIDR</a><br>
+* <a href="[% mbga_uri(base _ 'mbga/upload') %]">Upload</a><br>
+{emoji:晴れ}<br>
+{emoji:ゴルフ}<br>
+日本語でおｋ<br>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

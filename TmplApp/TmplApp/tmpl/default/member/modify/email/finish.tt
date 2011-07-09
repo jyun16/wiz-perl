@@ -1,0 +1,21 @@
+[% html = {
+    title       => 'Eメールアドレス変更',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<div align="center">
+<h3 class="font_l">Eメールアドレス変更</h3><br />
+Eメールアドレスを変更しました。
+</div>
+[% LPROCESS('include/footer.tt') %]
+</body>

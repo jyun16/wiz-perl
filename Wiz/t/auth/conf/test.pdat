@@ -1,0 +1,8 @@
+{
+	use_role  => 1,
+    user    => {
+        teston  => {
+            password    => 'papas',
+        },
+    },
+}

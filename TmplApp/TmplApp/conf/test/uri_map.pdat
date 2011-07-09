@@ -1,0 +1,5 @@
+{
+#    '^/args/(?<hoge>.*)'                => '/args',
+#    '^/args/(?<hoge>.*)/(?<fuga>.*)'    => '/args',
+    '^/args/(.*)'                       => '/args',
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="[% conf.title %]" author="[% conf.author %]" author_email="[% conf.email %]">
+        <Require feature="opensocial-0.8" />
+        <Require feature="tabs" />
+        <Require feature="views" />
+        <Require feature="dynamic-height" />
+        <Require feature="analytics" />
+        <Optional feature="content-rewrite">
+            <Param name="expires">0</Param>
+            <Param name="include-url"></Param>
+            <Param name="exclude-urls">.*</Param>
+        </Optional>
+    </ModulePrefs>
+    <Content type="url" view="mobile" href="http://xxxxxxxxxxxx/mobile" />
+    <Content type="html" view="canvas" quirks="false"><![CDATA[
+[% LPROCESS('include/mixi/import_files.tt') %]
+[% LPROCESS('include/mixi/canvas.tt') %]
+    ]]></Content>
+    <Content type="html" view="home,profile" quirks="false"><![CDATA[
+[% LPROCESS('include/mixi/import_files.tt') %]
+[% LPROCESS('include/mixi/gadget.tt') %]
+    ]]></Content>
+</Module>

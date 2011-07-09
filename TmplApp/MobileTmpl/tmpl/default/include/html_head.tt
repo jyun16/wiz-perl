@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+[% IF html.keywords != "" -%]
+<meta name="Keywords" content="[% html.keywords %]" />
+[% END -%]
+[% IF html.description != "" -%]
+<meta name="Description" content="[% html.description %]" />
+[% END -%]
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="[% base %]js/main.js"></script>
+[% IF html.js.jquery -%]
+<script type="text/javascript">google.load("jquery", "1.3");</script>
+[% END -%]
+[% IF html.js.jquery_tools -%]
+<script type="text/javascript" src="[% base %]js/jquery.tools.min.js"></script>
+[% END -%]
+[% IF html.js.jquery_cookie -%]
+<script type="text/javascript" src="[% base %]js/jquery.cookie.js"></script>
+[% END -%]
+[% IF html.js.jquery_tojson -%]
+<script type="text/javascript" src="[% base %]js/jquery.tojson.js"></script>
+[% END -%]
+[% IF html.js.jquery_ui -%]
+<script type="text/javascript">google.load("jqueryui", "1.7");</script>
+[% END -%]
+[% IF html.js.jquery_layout -%]
+<script type="text/javascript" src="[% base %]js/jquery.layout.min.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/jquery.layout.css" />
+[% END -%]
+[% IF html.js.jquery_hover_toggle -%]
+<script type="text/javascript" src="[% base %]js/jquery-hover-toggle.js"></script>
+[% END -%]
+[% IF html.js.jquery_pretty_photo -%]
+<script type="text/javascript" src="[% base %]js/prettyPhoto.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/prettyPhoto.css" />
+[% END -%]
+[% IF html.js.jquery_rating -%]
+<script type="text/javascript" src="[% base %]js/jquery.rating.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/jquery.rating.css" />
+[% END -%]
+[% IF html.js.jquery_treeview -%]
+<script type="text/javascript" src="/js/jquery.treeview.js"></script>
+<link rel="stylesheet" href="/css/jquery.treeview.css" />
+[% END -%]
+[% IF html.js.jquery_highlight -%]
+<script type="text/javascript" src="[% base %]js/jquery.highlight.js"></script>
+[% END -%]
+[% IF html.js.jquery_hotkeys -%]
+<script type="text/javascript" src="[% base %]js/jquery.hotkeys.min.js"></script>
+[% END -%]
+[% IF html.js.jquery_highlight -%]
+<script type="text/javascript" src="[% base %]js/jquery.highlight.js"></script>
+[% END -%]
+[% IF html.js.jquery_tablednd -%]
+<script type="text/javascript" src="[% base %]js/jquery.tablednd_0_5.js"></script>
+[% END -%]
+[% IF html.js.jquery_alphanumeric -%]
+<script type="text/javascript" src="[% base %]js/jquery.alphanumeric.pack.js"></script>
+[% END -%]
+[% IF html.js.jquery_jcal -%]
+<script language="JavaScript" type="text/javascript" src="[% base %]jquery-jcal/jCal.js"></script> 
+<link rel="stylesheet" type="text/css" href="[% base %]jquery-jcal/jCal.small.css"> 
+[% END -%]
+[% IF html.js.jquery_alerts -%]
+<script type="text/javascript" src="[% base %]jquery-alerts/jquery.alerts.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]jquery-alerts/jquery.alerts.css" />
+[% END -%]
+[% IF html.js.jquery_vtip -%]
+<script type="text/javascript" src="[% base %]jquery-vtip/vtip-min.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]jquery-vtip/css/vtip.css" />
+[% END -%]
+[% IF html.js.jquery_blockui -%]
+<script type="text/javascript" src="[% base %]js/jquery.blockUI.js"></script>
+[% END -%]
+[% IF html.js.printf -%]
+<script type="text/javascript" src="[% base %]js/printf.js"></script>
+[% END -%]
+[% IF html.js.dateutil -%]
+<script type="text/javascript" src="[% base %]js/dateutil.js"></script>
+[% END -%]
+[% IF html.js.dateformat -%]
+<script type="text/javascript" src="[% base %]js/dateformat.js"></script>
+[% END -%]
+[% IF html.js.tinymce -%]
+<script type="text/javascript" src="[% base %]tiny_mce/jquery.tinymce.js"></script>
+[% END -%]
+[% IF html.js.menu -%]
+<link rel="stylesheet" type="text/css" href="[% base %]js/menu/skeleton/skeleton.css" />
+<script type="text/javascript" src="[% base %]js/menu/skeleton/stuHover.js"></script>
+[% END -%]
+[% IF html.js.jqgrid -%]
+<script type="text/javascript" src="[% base %]js/jquery.jqGrid.js" ></script>
+<script type="text/javascript" src="[% base %]js/jqGrid/jqModal.js" ></script>
+<script type="text/javascript" src="[% base %]js/jqGrid/jqDnR.js" ></script>
+<link rel="stylesheet" type="text/css" media="screen" href="[% base %]css/themes/basic/grid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="[% base %]css/themes/jqModal.css" />
+[% END -%]
+[% IF html.js.mootools -%]
+<script type="text/javascript">google.load("mootools", "1.2");</script>
+[% END -%]
+[% IF html.js.moodalbox -%]
+<script type="text/javascript" src="[% base %]js/moodalbox.js"></script>
+<link rel="stylesheet" href="[% base %]css/moodalbox.css" type="text/css" media="screen" />
+[% END -%]
+[% IF html.js.sexyalertbox -%]
+<script type="text/javascript" src="[% base %]js/sexyalertbox.js" ></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/sexyalertbox.css" />
+[% END -%]
+[% IF html.js.shadowbox -%]
+<script type="text/javascript" src="[% base %]shadowbox/shadowbox-pack.js"></script>
+[% END -%]
+[% IF html.js.ajaxzip2 -%]
+<script src="[% base %]js/ajaxzip2.js" charset="UTF-8"></script>
+<script>AjaxZip2.JSONDATA='[% base %]ajaxzip2';</script>
+[% END -%]
+[% IF html.js.jstree -%]
+<script type="text/javascript" src="[% base %]js/jsTree/lib/jquery.metadata.js"></script>
+<script type="text/javascript" src="[% base %]js/jsTree/lib/sarissa.js"></script>
+<script type="text/javascript" src="[% base %]js/jsTree/jquery.tree.min.js"></script>
+<script type="text/javascript" src="[% base %]js/jsTree/plugins/jquery.tree.contextmenu.js"></script> 
+[% END -%]
+<link rel="stylesheet" type="text/css" href="[% base %]css/main.css" />
+<link rel="shortcut icon" href="[% base %]favicon.ico" />
+<link rel="icon" href="[% base %]favicon.ico" type="image/x-icon" />
+<title>[% html.title %]</title>

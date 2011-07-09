@@ -1,0 +1,22 @@
+.ui-layout-pane {
+    padding: 0px;
+    overflow: auto;
+}
+.ui-layout-west {
+    padding: 4px;
+}
+.ui-layout-center {
+    padding: 4px;
+}
+.ui-layout-north {
+    border-bottom: 2px solid #3f97dc;
+}
+.ui-layout-south {
+    border-top: 2px solid #3f97dc;
+}
+.ui-layout-resizer {
+    background: #3f97dc;
+}
+.ui-layout-toggler {
+    background: #b0d3f0;
+}

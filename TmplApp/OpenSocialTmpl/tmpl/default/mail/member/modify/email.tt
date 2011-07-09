@@ -1,0 +1,11 @@
+Subject: [% app_name %]-Eメールアドレス変更
+
+[% app_name %]をご利用いただきありがとうございます。
+
+Eメールアドレスの仮変更が完了しました。
+
+以下のURLをクリック後に、変更が完了となります。
+
+[% url %]
+
+[% PROCESS 'default/include/mail_footer.tt' %]

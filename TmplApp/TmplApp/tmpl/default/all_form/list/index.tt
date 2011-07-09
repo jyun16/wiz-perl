@@ -1,0 +1,188 @@
+[% html = {
+    title       => app_name _ '',
+    keywords    => '',
+    js          => {
+        printf                  => 1,
+        jquery                  => 1,
+        grid_table              => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+function setToday(name) {
+    var now = new Date();
+    $("#" + name + "_y").val(now.getFullYear());
+    $("#" + name + "_m").val(sprintf("%02d", now.getMonth() + 1));
+    $("#" + name + "_d").val(sprintf("%02d", now.getDate()));
+    $("#" + name + "_h").val(sprintf("%02d", now.getHours()));
+    $("#" + name + "_mi").val(sprintf("%02d", now.getMinutes()));
+    $("#" + name + "_s").val(sprintf("%02d", now.getSeconds()));
+}
+
+function clearDate(name) {
+    $("#" + name + "_y").val("");
+    $("#" + name + "_m").val("");
+    $("#" + name + "_d").val("");
+    $("#" + name + "_h").val("");
+    $("#" + name + "_mi").val("");
+    $("#" + name + "_s").val("");
+}
+
+function multiDelete() {
+    var uri = '/all_form/multi_delete/index?ids=';
+    var l = document.form.mdel.length;
+    if (l == undefined) {
+        window.open(uri + document.form.mdel.value);
+    }
+    else {
+        var query = new Array();
+        for (var i = 0; i < l; i++) {
+            if (document.form.mdel[i].checked) {
+                query.push(document.form.mdel[i].value);
+            }
+        }
+        window.open(uri + query.join(','));
+    }
+}
+[% pager.js %]
+[% sort.js %]
+[% IF p.search_back != '' -%]
+function choiceSearchBack(id) {
+    var params = new Object();
+    params['[% p.search_back | html %]'] = id;
+    params['search_back_result'] = 1;
+    location.href = appendUriParams('[% referer %]', params);
+}
+[% END -%]
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<form action="index" name="form" method="post">
+[% IF p.search_back != '' -%]
+<h3>選択してください</h3>
+[% END -%]
+<table cellpadding="0" cellspacing="0" class="input_table">
+[% SET form_type = "" %]
+[% FOREACH fn = f.search_forms -%]
+[% SET form_type = f.form_type(fn) %]
+<tr>
+    <th>
+        [% f.item_label(fn) %]<br>
+        [% errmsg(f.error_message(fn)) %]
+    </th>
+    <td>
+        [% IF form_type == "radio" || form_type == "checkbox" -%]
+            [% IF fn == "radio2" -%]
+                [% FOREACH f.tagmap(fn) -%]
+                    [% key %][% value %]
+                [% END -%]
+            [% ELSE -%]
+                [% FOREACH o = f.tag(fn) -%]
+                    [% o %]
+                [% END -%]
+            [% END -%]
+        [% ELSIF form_type == "datetime" -%]
+            [% tag = f.tag(fn) -%]
+            [% end_tag = f.tag(fn _ "_end") -%]
+            開始:
+            [% IF !f.conf("created_time").item("time_only") -%]
+                [% tag.year %]-[% tag.month %]-[% tag.day -%]
+            [% END -%]
+            [% IF !f.conf("created_time").item("date_only") -%]
+                [% tag.hour %]-[% tag.minute %]-[% tag.second -%]
+            [% END -%]
+            <a href="javascript:setToday('[% fn %]')">今日</a>
+            <a href="javascript:clearDate('[% fn %]')">クリア</a>
+            <br />
+            終了:
+            [% IF !f.conf("created_time").item("time_only") -%]
+                [% end_tag.year %]-[% end_tag.month %]-[% end_tag.day -%]
+            [% END %]
+            [% IF !f.conf("created_time").item("date_only") -%]
+                [% end_tag.hour %]-[% end_tag.minute %]-[% end_tag.second -%]
+            [% END -%]
+            <a href="javascript:setToday('[% fn _ '_end' %]')">今日</a>
+            <a href="javascript:clearDate('[% fn _ '_end' %]')">クリア</a>
+        [% ELSE -%]
+            [% f.tag(fn) %]
+        [% END -%]
+    </td>
+</tr>
+[% END -%]
+<tr>
+    <td colspan="2" class="button">
+        <input type="submit" value="検索" />
+    </td>
+</tr>
+</table>
+<br />
+* <a href="[% base %]all_form/register/index">新規作成</a><br />
+<br />
+[% IF pager.total_number > 0 -%]
+[% pager.total_number %]件中[% pager.first %]～[% pager.last %]件目表示
+[% IF pager.total_pages > 1 %]([% pager.now_page %]/[% pager.total_pages %]ページ)[% END %]
+[% pager.tag %]
+[% END -%]
+<table cellpadding="0" cellspacing="0" class="grid_table">
+<tr>
+[% IF p.search_back != '' -%]
+    <th>選択</th>
+[% END -%]
+[% FOREACH fn = f.list_forms -%]
+    <th nowrap>[% sort.a(f.sort_item(fn)) -%]</th>
+[% END -%]
+    <th>削除</th>
+</tr>
+[% FOREACH d = f.list_values -%]
+<tr>
+    [% IF p.search_back != '' -%]
+    <th>
+        <input type="radio" name="search_back_choice" value="[% d.id %]" onClick="javascript:choiceSearchBack([% d.id %])">
+    </th>
+    [% END -%]
+    [% FOREACH fn = f.list_forms -%]
+    <td nowrap>
+        [% form_type = f.form_type(fn) %]
+        [% IF fn == "id" -%]
+        <a href="[% base %]all_form/show/index?id=[% d.id %]">[% f.html_value(fn, d.item(fn)) -%]</a> 
+            [% IF p.search_back == '' -%]
+        <a href="[% base %]all_form/modify/index?id=[% d.id %]">編集</a>
+        <a href="[% base %]all_form/delete/index?id=[% d.id %]">削除</a>
+            [% END -%]
+        [% ELSE -%]
+        [% IF form_type == "checkbox" || form_type == "multiselect" -%]
+            [% FOREACH dd = d.item(fn) -%]
+                [% f.label(fn, dd).0 %]<br />
+            [% END -%]
+            [% IF d.item(fn).size == 0; '&nbsp'; END -%] 
+        [% ELSE -%]
+            [% f.html_value(fn, d.item(fn)) -%]
+        [% END -%]
+        [% END -%]
+    </td>
+    [% END -%]
+    <td class="align_c"><input type="checkbox" name="mdel" value="[% d.id %]"></td>
+</tr>
+[% END -%]
+<tr>
+[% IF p.search_back != '' -%]
+    <td>&nbsp;</td>
+[% END -%]
+    <td colspan=[% f.list_forms.size %]>&nbsp;</a>
+    <td>
+        <input type="button" value="削除" onClick="javascript:multiDelete();"/>
+    </td>
+</tr>
+</table>
+[% pager.hidden %]
+[% sort.hidden %]
+[% IF p.search_back != '' -%]
+<input type="hidden" name="referer" value="[% referer %]" />
+<input type="hidden" name="search_back" value="[% p.search_back | html %]" />
+[% END -%]
+<input type="hidden" name="ignore_validation" value="" />
+</form>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

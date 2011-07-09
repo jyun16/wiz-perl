@@ -1,0 +1,59 @@
+[% html = {
+    title       => '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+        jquery_hover_toggle     => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+[% errmsg(login_failed) %]
+
+<form action="login" method="post">
+
+<a href="[% base %]admin/login">Admin login</a>
+
+<div class="login_table_box main_form_box margin_a">
+<img src="[% base %]images/box/top_m.gif" width="330" height="6" alt="" />
+<table cellpadding="0" cellspacing="0" class="main_form login_table">
+[% FOREACH if = f.input_forms -%]
+<tr>
+    <th>
+        [% IF not_empty_forms.item(if) == 1 %]*&nbsp;[%- END -%]
+        [%- f.item_label(if) %]
+    </th>
+    <td>
+        [% f.tag(if) %]<br/>[% errmsg(f.error_message(if)) %]
+    </td>
+</tr>
+<tr> 
+    <td colspan="2"> &nbsp; </td>
+</tr>
+[% END -%]
+</table>
+<table cellpadding="0" cellspacing="0" class="paddingb_m">
+<tr>
+    <td class="login_table_announcement paddingl_l" valign="bottom">
+        <a href="[% base %]member/modify/password/send" class="link_orange">Forgot your password?</a> <br />
+        <a href="[% base %]member/modify/email/send" class="link_orange">Change your password?</a>
+    </td>
+    <td class="paddingr_l align_r">
+        <input class="btn_login" type="submit" value="" />
+    </td>
+</tr>
+</table>
+<img src="[% base %]images/box/bottom_m.gif" width="330" height="6" alt="" />
+</div>
+
+</form>
+
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

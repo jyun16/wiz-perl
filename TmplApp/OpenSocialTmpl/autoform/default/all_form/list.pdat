@@ -1,0 +1,120 @@
+{
+    _extends    => '../common',
+    _pager          => {
+        type        => 'google',
+        prev_label  => '前',
+        next_label  => '次',
+    },
+    _sort       => {
+        ignore_validation => 1,
+    },
+    _forms    => [qw(
+        id
+        userid
+        member_id
+        text
+        password
+        textarea
+        select1
+        multi_select
+        radio1
+        radio2
+        checkbox
+        email
+        first_name
+        last_name
+        date1
+        date2
+        time1
+        datetime1
+        created_time
+    )],
+    '*date1_end:date1' => {
+        default => '',
+        attribute   => [
+            {
+                id  => 'date1_end_y',
+            },
+            {
+                id  => 'date1_end_m',
+            },
+            {
+                id  => 'date1_end_d',
+            },
+        ],
+    },
+    '*date2_end:date2' => {
+        default => '',
+        attribute   => [
+            {
+                id  => 'date2_end_y',
+            },
+            {
+                id  => 'date2_end_m',
+            },
+            {
+                id  => 'date2_end_d',
+            },
+        ],
+    },
+    '*time1_end:time1' => {
+        default => '',
+        attribute   => [
+            {
+                id  => 'time1_end_h',
+            },
+            {
+                id  => 'time1_end_mi',
+            },
+            {
+                id  => 'time1_end_s',
+            },
+        ],
+    },
+    '*datetime1_end:datetime1' => {
+        default => '',
+        attribute   => [
+            {
+                id  => 'datetime1_end_y',
+            },
+            {
+                id  => 'datetime1_end_m',
+            },
+            {
+                id  => 'datetime1_end_d',
+            },
+            {
+                id  => 'datetime1_end_h',
+            },
+            {
+                id  => 'datetime1_end_mi',
+            },
+            {
+                id  => 'datetime1_end_s',
+            },
+        ],
+    },
+    '*created_time_end:created_time' => {
+        default => '',
+        attribute   => [
+            {
+                id  => 'created_time_end_y',
+            },
+            {
+                id  => 'created_time_end_m',
+            },
+            {
+                id  => 'created_time_end_d',
+            },
+            {
+                id  => 'created_time_end_h',
+            },
+            {
+                id  => 'created_time_end_mi',
+            },
+            {
+                id  => 'created_time_end_s',
+            },
+        ],
+    },
+}

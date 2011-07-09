@@ -1,0 +1,5 @@
+<b>* プロフィール</b><br>
+** Owner<br>
+<div id='owner_profile'></div>
+** Viewer<br>
+<div id='viewer_profile'></div>

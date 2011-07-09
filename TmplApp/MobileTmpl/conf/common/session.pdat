@@ -1,0 +1,8 @@
+{
+    expires         => '10d',
+    server          => 'localhost:11115',
+#    servers         => [
+#        'localhost:11112',
+#        'localhost:11113',
+#    ],
+}

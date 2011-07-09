@@ -1,0 +1,47 @@
+{
+#    _input_encoding     => 'UTF-8',
+#    _output_encoding    => 'UTF-8',
+    gender             => {
+        item_label  => '性別',
+        type        => 'gender',
+        empty       => '選択してください',
+        validation    => {
+            not_empty => 1,
+        },
+    },
+    prefecture      => {
+        item_label  => '都道府県',
+        type        => 'prefecture',
+        validation    => {
+            not_empty => 1,
+        },
+    },
+    job             => {
+        item_label  => '職業',
+        type        => 'job',
+        validation    => {
+            not_empty => 1,
+        },
+    },
+    hobby           => {
+        item_label  => '趣味',
+        type        => 'hobby',
+        validation    => {
+            not_empty   => 1,
+            min_select  => 4,
+        },
+    },
+     birthday        => {
+        item_label  => '生年月日',
+        type        => 'datetime',
+        date_onlye  => 1,
+        filter          => [
+            datetime    => {
+                format  => '%m<br>%d',
+            },
+        ],
+        validation    => {
+            not_empty => 1,
+        },
+    },
+}

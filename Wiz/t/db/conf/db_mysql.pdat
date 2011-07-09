@@ -1,0 +1,16 @@
+{
+    type    => 'mysql',
+    db      => 'test',
+    user    => 'root',
+    log     => {
+        stderr  => TRUE,
+        path    => 'logs/db.log',
+        level   => 'warn',
+    },
+    cache   => {
+        type    => 'Memcached::XS',
+        conf    => {
+            servers => [qw(127.0.0.1:11211)],
+        },
+    },
+}

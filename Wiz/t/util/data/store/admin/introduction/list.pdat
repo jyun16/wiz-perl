@@ -1,0 +1,17 @@
+{
+    _extends => '../common',
+    _pager => {
+        type        => 'basic',
+        prev_label  => '戻',
+        next_label  => '次',
+    },
+    _forms => [qw(
+        created_time
+        member_name
+        shop_name
+        product_number
+        product_name
+        blog_title
+        used_flag
+    )],
+}

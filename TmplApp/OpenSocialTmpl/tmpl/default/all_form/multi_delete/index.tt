@@ -1,0 +1,62 @@
+[% html = {
+    title       => app_name _ '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+
+<form action="index" method="post">
+[% SET form_type = "" -%]
+<table cellpadding="0" cellspacing="0" class="normal_table_v multi_delete_table margin_a">
+<tr>
+[% SET field_count = 1 -%] 
+[% FOREACH fn = f.input_forms -%]
+    <th nowrap class="[% IF field_count == f.input_forms.size; 'last'; END -%]">
+        [% f.item_label(fn) %]
+    </th>
+[% field_count = field_count + 1 -%] 
+[% END -%]
+</tr>
+[% FOREACH d = f.list_values -%]
+<tr>
+    [% SET field_count = 1 -%] 
+    [% FOREACH fn = f.input_forms -%]
+    [% form_type = f.form_type(fn) -%]
+    <td nowrap class="[% IF field_count == f.input_forms.size; 'last'; END -%]">
+        [% IF form_type == "multiselect" || form_type == "radio" || form_type == "checkbox" -%]
+            [% FOREACH l = f.html_value(fn) %]
+                [% l %][% IF !loop.last %]<br/>[% END %]
+            [% END -%]
+        [% ELSIF form_type == "password" -%]
+            [% IF f.html_value(fn) -%]
+            [% f.html_value(fn) | pw %]
+            [% ELSE; '&nbsp;'; END -%]
+        [% ELSE -%]
+            [% f.html_value(fn) || '&nbsp;'%]
+        [% END -%]
+    </td>
+    [% field_count = field_count + 1 -%] 
+    [% END %]
+</tr>
+[% END -%]
+<tr>
+    <td colspan="[% f.input_forms.size %]" class="align_c bottom">
+        <input type="button" value="" class="btn_back" style="border: 0px;" onClick="window.history.back();" />
+        <input type="submit" value="" class="btn_delete" style="border: 0px;" />
+    </td>
+</tr>
+</table>
+<input type="hidden" name="ids" value="[% c.req.params.ids %]">
+[% secure_token_tag %]
+</form>
+
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

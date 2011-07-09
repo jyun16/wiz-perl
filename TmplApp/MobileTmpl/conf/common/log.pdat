@@ -1,0 +1,20 @@
+{
+    level   => 'DEBUG',
+    logs    => {
+        token   => {
+            stderr  => 1,
+            path    => 'logs/token.log',
+        },
+        debug    => {
+            stderr  => 1,
+        },
+        error    => {
+            stderr  => 1,
+            path    => 'logs/error.log',
+        },
+        batch    => {
+            stderr  => 1,
+            path    => 'logs/batch.log',
+        },  
+    },
+}

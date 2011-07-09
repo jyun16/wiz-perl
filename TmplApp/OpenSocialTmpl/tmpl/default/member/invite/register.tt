@@ -1,0 +1,36 @@
+[% html = {
+    title       => '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<div class="contents">
+<h3>会員登録完了</h3>
+<p class="show">会員登録が完了しました</p>
+
+<input type="button" value="買い物をする" onClick="javascript:document.location.href='[% base %]category/first'">
+
+<div class="hr"></div>
+<h3>送了メールの内容</h3>
+StoreTrip にご登録頂きまして有り難うございます。<br />
+以下のURLをクリックして登録完了となります。<br />
+http://storetrip.jp/karitouroku?s=dkfajsdklfasf<br />
+今後ともStoreTripを宜しくお願いします。<br />
+<br />
+------------------------------<br />
+「StoreTrip」<br />
+http://storetrip.jp/<br />
+------------------------------<br />
+
+</div>
+[% LPROCESS('include/footer.tt') %]
+</body>

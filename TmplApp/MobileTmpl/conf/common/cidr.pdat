@@ -1,0 +1,8 @@
+{
+    memcached   => {
+        servers => [
+            'localhost:12111',
+        ],
+    },
+    cache_key     => '__cidr_data__',
+}

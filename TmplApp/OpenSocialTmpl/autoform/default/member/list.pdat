@@ -1,0 +1,40 @@
+{
+    _extends    => '../common',
+    _pager          => {
+        type        => 'google',
+        prev_label  => '前',
+        next_label  => '次',
+    },
+    _sort       => {
+        ignore_validation => 1,
+    },
+    '*userid:userid'  => {
+        validation    => {
+            is_alphabet_number  => 1,
+        },
+    },
+    '*password:password'  => {
+        validation    => {
+        },
+    },
+    '*confirm_password:password'  => {
+        validation    => {
+        },
+    },
+    '*email:email'  => {
+        validation    => {
+            is_ascii    => 1,
+        },
+    },
+    '*confirm_email:email'  => {
+        validation    => {
+        },
+    },
+    _forms    => [qw(
+        id
+        userid
+        password
+        email
+        created_time
+    )],
+}

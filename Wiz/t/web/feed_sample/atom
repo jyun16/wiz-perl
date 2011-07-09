@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>RSSタイトル</title>
+  <author>
+    <name>JN</name>
+  </author>
+  <subtitle>デスクリプション</subtitle>
+  <link rel="alternate" type="text/html"/>
+  <entry>
+    <title>タイトル111</title>
+    <id>http://hoge.com/rss1</id>
+    <link rel="alternate" href="http://hoge.com/rss1" type="text/html"/>
+    <summary type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">コンテンツ111</div>
+    </summary>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">コンテンツ111</div>
+    </content>
+    <published>2009-10-11T22:33:44+09:00</published>
+    <updated>2009-10-11T22:33:44+09:00</updated>
+  </entry>
+  <entry>
+    <title>タイトル222</title>
+    <id>http://hoge.com/rss2</id>
+    <link rel="alternate" href="http://hoge.com/rss2" type="text/html"/>
+    <summary type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">コンテンツ222</div>
+    </summary>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">コンテンツ222</div>
+    </content>
+    <published>2009-12-14T14:28:49+09:00</published>
+    <updated>2009-12-14T14:28:49+09:00</updated>
+  </entry>
+</feed>

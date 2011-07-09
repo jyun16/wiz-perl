@@ -1,0 +1,27 @@
+{
+    type    => 'mysql',
+    db      => 'open_social_tmpl',
+    user    => 'root',
+    passwd  => '',
+    charset => 'utf8',
+    master  => [
+        {
+            log     => {
+                stack_dump  => 1,
+                stderr      => 1,
+                path        => 'logs/db_master.log',
+                level       => 'warn',
+            },
+        }
+    ],
+    slave   => [
+        {
+            log     => {
+                stack_dump  => 1,
+                stderr      => 1,
+                path        => 'logs/db_slave.log',
+                level       => 'warn',
+            },
+        },
+    ],
+}

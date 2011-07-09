@@ -1,0 +1,159 @@
+[% html = {
+    title       => app_name _ '',
+    keywords    => '',
+    js          => {
+        printf                  => 1,
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+function setToday(name) {
+    var now = new Date();
+    $("#" + name + "_y").val(now.getFullYear());
+    $("#" + name + "_m").val(sprintf("%02d", now.getMonth() + 1));
+    $("#" + name + "_d").val(sprintf("%02d", now.getDate()));
+    $("#" + name + "_h").val(sprintf("%02d", now.getHours()));
+    $("#" + name + "_mi").val(sprintf("%02d", now.getMinutes()));
+    $("#" + name + "_s").val(sprintf("%02d", now.getSeconds()));
+}
+
+function clearDate(name) {
+    $("#" + name + "_y").val("");
+    $("#" + name + "_m").val("");
+    $("#" + name + "_d").val("");
+    $("#" + name + "_h").val("");
+    $("#" + name + "_mi").val("");
+    $("#" + name + "_s").val("");
+}
+
+function multiDelete() {
+    var uri = '/all_form/multi_delete/index?ids=';
+    var l = document.form.mdel.length;
+    if (l == undefined) {
+        window.open(uri + document.form.mdel.value);
+    }
+    else {
+        var query = new Array();
+        for (var i = 0; i < l; i++) {
+            if (document.form.mdel[i].checked) {
+                query.push(document.form.mdel[i].value);
+            }
+        }
+        window.open(uri + query.join(','));
+    }
+}
+[% pager.js %]
+[% sort.js %]
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+
+<form name="form" method="post">
+<table cellpadding="0" cellspacing="0" class="normal_table_h list_table">
+[% SET form_type = "" %]
+[% FOREACH fn = f.forms -%]
+[% SET form_type = f.form_type(fn) %]
+<tr>
+    <th>
+        [% f.item_label(fn) %]<br>
+        [% errmsg(f.error_message(fn)) %]
+    </th>
+    <td>
+        [% IF form_type == "radio" || form_type == "checkbox" -%]
+            [% IF fn == "radio2" -%]
+                [% FOREACH f.tagmap(fn) -%]
+                    [% key %][% value %]
+                [% END -%]
+            [% ELSE -%]
+                [% FOREACH o = f.tag(fn) -%]
+                    [% o %]
+                [% END -%]
+            [% END -%]
+        [% ELSIF form_type == "datetime" -%]
+            [% tag = f.tag(fn) -%]
+            [% end_tag = f.tag(fn _ "_end") -%]
+            開始:
+            [% IF !f.conf("created_time").item("time_only") -%]
+                [% tag.year %]-[% tag.month %]-[% tag.day -%]
+            [% END -%]
+            [% IF !f.conf("created_time").item("date_only") -%]
+                [% tag.hour %]-[% tag.minute %]-[% tag.second -%]
+            [% END -%]
+            <a href="javascript:setToday('[% fn %]')" class="link_button">今日</a>
+            <a href="javascript:clearDate('[% fn %]')" class="link_button">クリア</a>
+            <br />
+            終了:
+            [% IF !f.conf("created_time").item("time_only") -%]
+                [% end_tag.year %]-[% end_tag.month %]-[% end_tag.day -%]
+            [% END %]
+            [% IF !f.conf("created_time").item("date_only") -%]
+                [% end_tag.hour %]-[% end_tag.minute %]-[% end_tag.second -%]
+            [% END -%]
+            <a href="javascript:setToday('[% fn _ '_end' %]')" class="link_button">今日</a>
+            <a href="javascript:clearDate('[% fn _ '_end' %]')" class="link_button">クリア</a>
+        [% ELSE -%]
+            [% f.tag(fn) %]
+        [% END -%]
+    </td>
+</tr>
+[% END -%]
+<tr>
+    <td colspan="2" class="bottom align_c">
+        <input type="submit" value="" class="btn_search" style="border: 0px;" />
+    </td>
+</tr>
+</table>
+<br />
+* <a href="[% base %]all_form/register/index">新規作成</a><br />
+<br />
+[% IF pager.total_number > 0 -%]
+[% pager.total_number %]件中[% pager.first %]～[% pager.last %]件目表示
+[% IF pager.total_pages > 1 %]([% pager.now_page %]/[% pager.total_pages %]ページ)[% END %]
+[% pager.tag %]
+[% END -%]
+<table cellpadding="0" cellspacing="0" class="normal_table_v list_table">
+<tr>
+[% FOREACH fn = f.forms -%]
+    <th nowrap>[% sort.a(f.sort_item(fn)) -%]</th>
+[% END -%]
+    <th class="last">削除</th>
+</tr>
+[% FOREACH d = f.list_values -%]
+<tr>
+    [% FOREACH fn = f.forms -%]
+    <td nowrap class="align_c">
+        [% form_type = f.form_type(fn) %]
+        [% IF fn == "id" -%]
+        <a href="[% base %]all_form/show/index?id=[% d.id %]">[% f.html_value(fn, d.item(fn)) -%]</a> 
+        <a href="[% base %]all_form/modify/index?id=[% d.id %]">編集</a>
+        <a href="[% base %]all_form/delete/index?id=[% d.id %]">削除</a>
+        [% ELSE -%]
+        [% IF form_type == "checkbox" || form_type == "multiselect" -%]
+            [% FOREACH dd = d.item(fn) -%]
+                [% f.label(fn, dd).0 %]<br />
+            [% END -%]
+            [% IF d.item(fn).size == 0; '&nbsp'; END -%] 
+        [% ELSE -%]
+            [% f.html_value(fn, d.item(fn)) || '&nbsp;' -%]
+        [% END -%]
+        [% END -%]
+    </td>
+    [% END -%]
+    <td class="align_c last"><input type="checkbox" name="mdel" value="[% d.id %]"></td>
+</tr>
+[% END -%]
+<tr>
+    <td colspan=[% f.forms.size %]>&nbsp;</a>
+    <td class="align_c last">
+        <input type="button" value="" class="btn_delete" style="border: 0px;" onClick="javascript:multiDelete();"/>
+    </td>
+</tr>
+</table>
+[% pager.hidden %]
+[% sort.hidden %]
+</form>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

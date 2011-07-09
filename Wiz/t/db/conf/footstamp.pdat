@@ -1,0 +1,44 @@
+{
+    footstamp01   => {
+        log => {
+            stderr  => 1,
+            path    => 'logs/cluster01.log',
+        },
+        master  => [
+            {
+                min_idle        => 4,
+                priority        => 10,
+                read_priority   => 10,
+            },
+        ],
+        slave   => [
+            {
+                min_idle        => 2,
+                priority        => 10,
+            },
+            {
+                min_idle        => 2,
+                priority        => 1,
+            },
+        ],
+    },
+    footstamp02   => {
+        log => {
+            stderr  => 1,
+            path    => 'logs/cluster02.log',
+        },
+        master  => [
+            {
+                min_idle        => 4,
+            },
+        ],
+        slave   => [
+            {
+                min_idle        => 2,
+            },
+            {
+                min_idle        => 2,
+            },
+        ],
+    },
+}

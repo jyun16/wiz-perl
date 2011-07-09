@@ -1,0 +1,13 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=[% c.mobile_charset %]" />
+[% IF html.keywords != "" -%]
+<meta name="Keywords" content="[% html.keywords %]" />
+[% END -%]
+[% IF html.description != "" -%]
+<meta name="Description" content="[% html.description %]" />
+[% END -%]
+<link rel="shortcut icon" href="[% base %]favicon.ico" />
+<link rel="icon" href="[% base %]favicon.ico" type="image/x-icon" />
+<title>[% html.title %]</title>

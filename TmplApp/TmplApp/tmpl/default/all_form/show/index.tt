@@ -1,0 +1,49 @@
+[% html = {
+    title       => app_name _ '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<form action="index" method="post">
+<div align="center">
+<table cellpadding="0" cellspacing="0" class="input_table">
+[% FOREACH fn = f.confirm_forms %]
+[% SET form_type = f.form_type(fn) %]
+<tr>
+    <th>
+        [% f.item_label(fn) %]
+    </th>
+    <td>
+        [% IF form_type == "radio" || form_type == "checkbox" || form_type == "multiselect" -%]
+            [% FOREACH d = f.html_value(fn) -%]
+                [% d %]
+            [% END -%]
+            [% IF !d.html_value(fn); '&nbsp'; END -%] 
+        [% ELSE -%]
+            [% f.html_value(fn) -%]
+        [% END -%]
+    </td>
+</tr>
+[% END %]
+<tr>
+    <td colspan="2" class="button">
+        <input type="button" value="戻る" onClick="window.history.back();" />
+        [% IF f.mode == "delete" -%]
+        <input type="submit" value="削除" />
+        [% END -%]
+    </td>
+</tr>
+</table>
+[% secure_token_tag %]
+</div>
+</form>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

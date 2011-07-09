@@ -1,0 +1,261 @@
+=head1 NAME
+
+Wiz::DB::DataIO::Tutorial - simple tutorial to use Wiz::DB
+
+=head1 Simple Description
+
+=over 4
+
+=item 1. Create Wiz::DB::Connection($conn) object
+
+See L<Wiz::DB::Connection::Tutorial>.
+
+ $conn = Wiz::DB::Connection->new(\%param);
+
+=item 2. Create Wiz::DB::DataIO object($dio)
+
+You have to pass $conn to create the object.
+
+ $dio = Wiz::DB::DataIO->new($conn, 'table_name');
+
+=item 3. Call sort of select method by $dio
+
+You can get Wiz::DB::ResultSet object($rs).
+
+ $rs = $dio->select(id => 1);
+
+=item 4. Call C<next> method by $rs
+
+If $rs has record, it returns 1.
+
+ die "no record!" if not $rs->next;
+
+=item 5. Get data from $rs
+
+$rs has 2 method to get information.
+
+ $rs->get('column_name');
+
+It returns one column information.
+
+ $rs->data;
+
+It returns all columns information as hash ref.
+
+ {
+   column_name  => 1,
+   column_name2 => 2,
+   ...
+ }
+
+=head2 Typical Code Example
+
+The follwoing code can get all staff's name.
+
+=head3 Select
+
+ my $conn = Wiz::DB::Connection->new(\%param);
+ my $dio  = Wiz::DB::DataIO->new($conn, "staff");
+  
+ if(my $rs = $dio->select) {
+     while ($rs->next) {
+         print $rs->get('name'), "\n";
+     }
+ }
+
+Or you want to get all data.
+
+ my @rows = $dio->select();
+
+You can get as the following data.
+
+ {
+   column  => 'value',
+   column2 => 'value'
+ },
+ {
+   column  => 'value1',
+   column2 => 'value2'
+ },
+ ...
+
+=head3 Insert
+
+ my $conn = Wiz::DB::Connection->new(\%param);
+ my $dio  = Wiz::DB::DataIO->new($conn, "staff");
+ $dio->create({column => 1, column => 2});
+
+=head3 Update
+
+ my $conn = Wiz::DB::Connection->new(\%param);
+ my $dio  = Wiz::DB::DataIO->new($conn, "staff");
+ $dio->set(column  => '1');
+ $dio->set(column2 => '2');
+ $dio->update(id => 5);
+
+=head3 Delete
+
+=head1 Connection/Table Information
+
+=head2 Get current connection
+
+ my $dbc = $dio->dbc;
+
+=head2 Get table name
+
+ my $table = $dio->table;
+
+=head1 SELECT From Table
+
+The following is examples for select data.
+
+=head2 Simple Usage
+
+ $dio = Wiz::DB::DataIO->new($conn, "table")
+ if( my $rs = $dio->select(id => 1) and $rs->next) {
+     print $rs->get('column_name'), "\n";
+ }
+
+=head2 Select with specified column
+
+You can spcify columns which you want to fetch.
+
+ $data->select(fields => ['column1', 'column2'], where => { column => 'value'})
+
+=head2 Complicate Condition
+
+=head2 Execute SQL Query
+
+If you want to execute SQL query. You can write as the following.
+
+ my $rs = $dio->execute("select * from staff where id = ?", [1]);
+ while( $rs->next) {
+     print $rs->get('column_name'), "\n";
+ }
+
+=head2 JOIN
+
+You have to create object for tables which you want to join,
+then use C<join> method.
+
+ my $hoge_dio = Wiz::DB::DataIO->new($conn, 'hoge');
+ my $fuga_dio = Wiz::DB::DataIO->new($conn, 'fuga');
+ $hoge->join(INNER_JOIN, [ $hoge_dio => 'fuga_id' ], [ $fuga_dio => 'id' ]);
+ $hoge->select(fuga_id => 3);
+
+This does C<inner join> and C<on> condition is C<hoge.fuga_id = fuga.id> and
+search condition is C<fuga_id = 3>.
+
+So, this means the following SQL.
+
+ SELECT * FROM hoge INNER JOIN fuga ON hoge.fuga_id=fuga.id where fuga_id = 3
+
+=head2 JOIN When Tables have same name columns
+
+You must use table alias when joining such tables.
+If you want to use table alias C<f> for C<fuga>, you can write as the following;
+
+ $hoge->join(INNER_JOIN, [ $hoge_dio => 'fuga_id' ], [ $fuga_dio => 'id' ], {fuga => 'f'});
+ my $rs = $hoge->select(fields => {f => 'url'}, where => {fuga.id => 3});
+ if ($rs and $rs->next) {
+     $rs->get();
+ }
+
+This means the following SQL.
+
+ SELECT f.url as f_url FROM hoge INNER JOIN fuga as f ON hoge.fuga_id = f.id where fuga.id = 3
+
+If you need plural feilds, you can write like as the following.
+
+ $hoge->join(INNER_JOIN, [ $hoge_dio => 'fuga_id' ], [ $fuga_dio => 'id' ], {fuga => 'f', hoge => 'h'});
+ my %alias = (
+     f => [qw/id url hoge fuga foo/],
+     h => 'url'
+ );
+ my $rs = $hoge->select(fields => \%alias, where => {fuga.id => 3});
+ if ($rs and $rs->next) {
+     $rs->get("f_id");
+ }
+
+This means the following SQL.
+
+ SELECT h.url as h_url, f.id as f_id, f.url as f_url,
+        f.hoge as f_hoge, f.fuga as f_fuga, f.foo as f_foo
+    FROM hoge INNER JOIN fuga as f ON hoge.fuga_id = f.id where fuga.id = 3
+
+If you want un-alias table and alias table.
+
+ $hoge->join(INNER_JOIN, [ $hoge_dio => 'fuga_id' ], [ $fuga_dio => 'id' ], {fuga => 'f'});
+ my %alias = (
+     f => [qw/id url hoge fuga foo/],
+ );
+ my $rs = $hoge->select(fields => ['url', \%alias], where => {f.id => 3});
+ if ($rs and $rs->next) {
+     $rs->get("f_id");
+     $rs->get("url");
+ }
+
+=head2 How to Use SQL Functions?
+ 
+Write function as is.
+
+ my($rs) = $dio->search(field => ['sum(price) as price_sum']);
+ print "Sum:", $rs->{price_sum};
+
+=head2 How to use C<order by> ?
+
+write '-order' in the same level of 'where'.
+
+ $dio->select(id => 1, -order => ['id']);
+ $dio->select(where => {id => 1, -order => ['id']});
+
+=head1 Clustering
+
+use L<Wiz::DB::Cluster>. It can handle mutiple server configuration.
+
+=head1 Controll Clusters
+
+use L<Wiz::DB::Cluster::Controller>. It can handle mutiple clusters.
+
+=head1 AUTHOR
+
+[Module creator] Junichiro NAKAMURA, C<< <jyun16@gmail.com> >>
+Kato Atsushi, C<< <kato@adways.net> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008 The Wiz Project. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE WIZ PROJECT ``AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED.  IN NO EVENT SHALL THE WIZ PROJECT OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OROTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are
+those of the authors and should not be interpreted as representing official
+policies, either expressed or implied, of the Wiz Project.
+
+Additionally, the followings are recommended for the developers
+to modify/improve/extend Wiz. Please send modified code/patch to mail list,
+wiz-perl@googlegroups.com.
+The source you sent will be merged into Wiz package.
+We welcome anyone who cooperates with us in developing this software.
+
+We'll invite you to this project's member.

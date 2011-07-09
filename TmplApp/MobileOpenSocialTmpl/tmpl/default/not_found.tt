@@ -1,0 +1,29 @@
+[% html = {
+    title       => '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<form method="get" action="[% action %]">
+<h2 class="error_message">NOT FOUND</h2> <br/>
+[% errmsg(msg) -%] <br/>
+[% IF a_label %]
+<a href="[% a_href %]">[% a_label %]</a>
+[% END %]
+[% IF hidden %]
+[% FOREACH h = hidden %]
+<input type="hidden" name="[% h.key %]" value="[% h.value %]">
+[% END %]
+[% END %]
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

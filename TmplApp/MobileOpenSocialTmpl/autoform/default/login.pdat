@@ -1,0 +1,26 @@
+{
+    userid  => {
+        item_label  => 'ユーザーID',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 34,
+            size        => 28,
+        },
+        validation    => {},
+    },
+    password  => {
+        item_label  => 'パスワード',
+        type        => 'password',
+        attribute   => {
+            maxlength   => 32,
+            size        => 28,
+        },
+        validation    => {
+            is_ascii    => 1,
+        },
+    },
+    _input_forms    => [qw(
+        userid
+        password
+    )],
+}

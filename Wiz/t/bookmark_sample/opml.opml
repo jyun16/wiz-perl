@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+<head>
+    <title>Bloglines Subscriptions</title>
+    <dateCreated>Fri, 06 Nov 2009 03:30:18 GMT</dateCreated>
+    <ownerName></ownerName>
+</head>
+<body>
+    <outline title="Bloglines | News" text="Bloglines | News" htmlUrl="http://www.bloglines.com" type="rss" xmlUrl="http://www.bloglines.com/rss/about/news" />
+    <outline text="News" >
+        <outline title="ITmedia News 速報 最新記事一覧" text="ITmedia News 速報 最新記事一覧" htmlUrl="" type="rss" xmlUrl="http://rss.itmedia.co.jp/rss/1.0/news_bursts.xml" />
+        <outline title="ITmedia News 速報 最新記事一覧" text="ITmedia News 速報 最新記事一覧" htmlUrl="" type="rss" xmlUrl="http://rss.itmedia.co.jp/rss/1.0/news_bursts.xml" />
+        <outline text="Tech" >
+            <outline title="ITmedia News 速報 最新記事一覧" text="ITmedia News 速報 最新記事一覧" htmlUrl="" type="rss" xmlUrl="http://rss.itmedia.co.jp/rss/1.0/news_bursts.xml" />
+            <outline title="ITmedia News 速報 最新記事一覧" text="ITmedia News 速報 最新記事一覧" htmlUrl="" type="rss" xmlUrl="http://rss.itmedia.co.jp/rss/1.0/news_bursts.xml" />
+        </outline>
+    </outline>
+</body>
+</opml>

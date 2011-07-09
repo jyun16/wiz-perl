@@ -1,0 +1,34 @@
+{
+    db              => 'default',
+    expires         => '10d',
+
+#    cluster => {
+#        default   => {
+#            db              => 'default',
+#            expires         => '10d',
+#            server          => 'localhost:13111',
+#        },
+#        default_secure  => {
+#            expires         => '10d',
+#            server          => 'localhost:11115',
+#            secure          => 1,
+#        },
+#        db_session  => {
+#            db              => 'default',
+#            expires         => '10d',
+#        },
+#        memcached_session   => {
+#            expires         => '10d',
+#            server          => 'localhost:11115',
+#        },
+#    },
+#    expires         => '10d',
+#    server          => 'localhost:11115',
+#    db              => 'default',
+#    expires         => '10d',
+#    server          => 'localhost:11115',
+#    servers         => [
+#        'localhost:12111',
+#        'localhost:12112',
+#    ],
+}

@@ -1,0 +1,3 @@
+{
+    auto_append_guid_on => 1,
+}

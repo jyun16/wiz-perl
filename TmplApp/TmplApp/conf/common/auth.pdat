@@ -1,0 +1,20 @@
+{
+    authz   => {
+        admin   => {
+            user_role           => 1,
+            session_key         => 'admin',
+            password_type       => 'sha512_base64',
+            table_names         => {
+                user            => 'admin',
+            },
+        },
+        member  => {
+            use_delete_flag => 1,
+            user_role       => 1,
+            password_type   => 'sha512_base64',
+            table_names     => {
+                user        => 'member',
+            },
+        },
+    },
+}

@@ -1,0 +1,739 @@
+=head1 NAME
+
+Wiz::Web::AutoForm::Tutorial - simple tutorial to use Wiz::Web::AutoForm
+
+=head1 OVERVIEW
+
+Wiz::Web::AutoForm has the following features.
+
+=over 4
+
+=item *
+
+handle FORM tags
+
+=item * 
+
+handle FORM labels
+
+=item *
+
+validation values related FORM
+
+=back
+
+=head1 VERY SIMPLE USAGE
+
+=head2 Create Configuration
+
+ $ mkdir -p conf/en
+
+This configuration is for C<'en'> locale.
+If you need to other locale, create it.
+Write the data as the following under the C<'conf/en'> directory.
+
+Write the following configuration.
+Note that: file name is to be form name. In case of the following file name,
+form name is "test_form".
+
+ conf/en/test_form.pdat
+ 
+ {
+     txt1 => {
+         item_label  => 'TEXT 1',
+         type        => 'text',
+         default     => 'hoge',
+         attribute   => {
+             size        => 32,
+             maxlength   => 32,
+         },
+         validation  => {
+             not_empty    => 1,
+         },
+     },
+ }
+
+C<'txt1'> is name of form item. In the above,
+C<'txt1'> means the follwoing tag.
+
+ <input type="text" name="text1" value="hoge">
+
+This form item's label is defined as C<item_label>
+
+ TEXT 1
+
+This value's validation is specified as C<validation>
+
+ { not_empty => 1 }
+
+=head2 Write Tempalte
+
+For example, using Template::Toolkit. Of cource, any template is OK.
+
+ tmpl/en/test_form.tt
+ 
+ <form method="POST">
+ [% af.item_label('text1') %] [% af.tag('text1') %] [% af.error_message('text1') %]<br>
+ <input type="submit" value="OK">
+ </form>
+
+C<< $af->error_message >> returns default error message,
+If you want your original error message, give your message object as constructor argument.
+see L<CONSTRUCTOR ARGUMENT>
+
+=head2 Write Code (for input)
+
+ my $afc = Wiz::AutoForm::Controller->new('/path/to/conf');
+ my $af  = $afc->autoform('test_form', $q->Vars);
+ my $tt  = Template->new(\%config);
+ $tt->process('en/test_form.tt', {af => $af})
+
+=head2 Output Example (for input error)
+
+ <form method="POST">
+ TEXT 1 <input type="text" name="txt1" value="ho&quot;ge" maxlength="32" size="32"> <br>
+ <input type="submit" value="OK">
+ </form>
+
+=head2 Write Code (for confirm)
+
+ my $afc = Wiz::AutoForm->new('/path/to/conf');
+ my $af  = $afc->autoform('test_form', $q->Vars);
+ my $tt  = Template->new(\%config);
+ $q->header;
+ $af->check_params;
+ if ($af->has_error) {
+     $tt->process('en/test_form.tt', {af => $af});
+ } else {
+     $tt->process('en/test_form_confirm.tt', {af => $af});
+ }
+
+=head2 Output Example (for input error)
+
+ <form method="POST">
+ TEXT 1 <input type="text" name="txt1" value="ho&quot;ge" maxlength="32" size="32"> value is empty<br>
+ <input type="submit" value="OK">
+ </form>
+
+=head1 CONSTRUCTOR ARGUMENT
+
+ $afc->autoform($form_name, {language => $lang, message => $message});
+
+$lang is 'en', 'ja' etc. $message is your own original message.
+C<<$af->error_message(@arg)>> passed @arg to $message object.
+
+=head1 HOW to IMPREMENT OTHER LANGUAGES
+
+Create symbolic link, or copy & modify configuration.
+
+ $ ln -s conf/en conf/ja
+
+or
+
+ $ cp -r conf/en conf/ja
+
+and modify files under conf/ja.
+
+=head1 USAGE
+
+More basic usage.
+
+=head2 CREATE CONFIG
+
+ $ mkdir -p conf/en
+ $ vi conf/en/test_form.pdat
+
+Write the data the following
+
+ {
+     txt1 => {
+         item_label  => 'TEXT 1',
+         type        => 'text',
+         default     => 'ho"ge',
+         attribute   => {
+             size        => 32,
+             maxlength   => 32,
+         },
+         validation    => {
+             not_empty    => 1,
+         },
+     },
+     sel1    => {
+         item_label  => 'SELECT BOX 1',
+         type        => 'select',
+         default     => '2',
+         options     => [
+             ''  => 'SELECT VOID',
+             0   => 'SELECT 0',
+             1   => 'SELECT 1',
+             2   => 'SELECT 2',
+             3   => 'SELECT 3',
+         ],
+         attribute   => {
+         }
+     },
+ }
+
+=head2 CREATE INSTANCE
+
+The argument is config directory. It's very simple!
+
+ my $afc = new Wiz::Web::AutoForm::Controller('conf');
+
+The $afc is to controll autoform instance per form.
+For example;
+
+ my $query_param = {
+     hoge => 'HOGE',
+     fuga => 'FUGA',
+ };
+
+It is HTTP request parameter.
+
+ my $form_name = 'test_form';
+
+$form_name is config file name.
+
+Let's get autoform object!!
+
+ my $af = $afc->autoform(
+     $form_name,
+     $query_param, {
+         message     => $message, 
+         language    => $language
+     }
+ );
+
+That's all.
+
+=head2 HOW TO USE INSTANCE?
+
+ use Wiz::Validator::Constant qw(:error);
+ 
+ # <input type="text" name="txt1" value="ho&quot;ge" maxlength="32" size="32">
+ $af->tag('txt1');
+ 
+ # TEXT 1
+ $af->item_label('txt1');
+ 
+ $af->check_params;
+ 
+ # TRUE
+ $af->has_error;
+ 
+ # IS_EMPTY(Wiz::Validator::Constant value)
+ $af->error('txt1');
+ 
+ # is_empty
+ $af->error_label('txt1');
+ 
+ # value is empty
+ $af->error_message('txt1');
+ 
+ # {
+ #     txt1    => IS_EMPTY,
+ # }
+ $af->errors;
+ 
+ # {
+ #     txt1    => 'is_empty',
+ # }
+ $af->errors_labels;
+ 
+ # {
+ #     txt1    => 'value is empty',
+ # }
+ $af->errors_messages;
+ 
+ $af->params(txt1 => 'foo');
+
+Validates the param holded by own.
+
+ $af->check_params;
+ 
+ # FALSE
+ $af->has_error;
+ 
+ # foo
+ $af->value('txt1');
+
+The data output by the value method that has been already sanitized.
+
+ $af->params(txt1 => '<b>foo</b>');
+
+ # &lt;b&gt;foo&lt;/b&gt;
+ $af->value('txt1');
+
+If you want to get not sanitized value, do the following.
+
+ # <b>foo</b>
+ $af->direct_value('txt1');
+
+In the case of the select form type.
+
+ # <select name="sel1">\
+ # <option value="">SELECT VOID\
+ # <option value="0">SELECT 0\
+ # <option value="1">SELECT 1\
+ # <option value="2" selected>SELECT 2\
+ # <option value="3">SELECT 3\
+ # </select>
+ $af->tag('sel1')
+ 
+ $af->params(sel1 => 1);
+ 
+ # 1
+ $af->value('sel1');
+ 
+ # SELECT 1
+ $af->value_label('sel1');
+ 
+ # [
+ #     'SELECT VOID',
+ #     'SELECT 0',
+ #     'SELECT 1',
+ #     'SELECT 2',
+ #     'SELECT 3'
+ # ]
+ $af->label('sel1');
+ 
+May be cool.
+
+=head1 CONFIG
+
+The config is swiched by language.
+
+ $af->language('ja');
+
+Then, AutoForm instance load conf/ja/xxx.
+
+If you want to load conf/ja/foo/bar/xxx.pdat
+
+ $afc->autoform([qw(foo bar xxx]);
+
+=head1 FORM TYPE
+
+=head2 TEXT
+
+See the USE INSTANCE section.
+
+=head2 PASSWORD
+
+ pw1 => {
+     item_label  => 'PASSWORD 0',
+     type        => 'password',
+     attribute   => {
+         size        => 20,
+         maxlength   => 20,
+     },
+ },
+ 
+ $af->params(pw1 => 'hogehoge');
+ 
+ # <input type="password" name="pw1" value="hogehoge" maxlength="20" size="20">
+ $af->tag('pw1')
+ 
+ # PASSWORD 1
+ $af->item_label('pw1')
+ 
+ # ********
+ $af->value('pw1')
+ 
+ # hogehoge
+ $af->direct_value('pw1')
+
+Simple (._.)
+
+=head2 TEXTAREA
+
+ ta1 => {
+     item_label  => 'TEXTAREA 1',
+     type        => 'textarea',
+     attribute   => {
+         cols        => 80,
+         rows        => 6,
+     },
+ },
+
+ $af->params(ta1 => 'hogehoge');
+
+ # <textarea name="ta1" rows="6" cols="80">hogehoge</textarea>
+ $af->tag('ta1');
+ 
+ # TEXTAREA 1
+ $af->item_label('ta1');
+ 
+ # hogehoge
+ $af->value('ta1')l
+
+=head2 SELECT BOX
+
+See the USE INSTANCE section.
+
+=head2 MULTI SELECT
+
+It's select box with the attribute of multiple.
+
+ msel1   => {
+     item_label  => 'MULTI SELECT BOX 1',
+     type        => 'multiselect',
+     default     => ['', 0, 1, 2],
+     options     => [
+         ''  => 'MULTI SELECT VOID',
+         0   => 'MULTI SELECT 0',
+         1   => 'MULTI SELECT 1',
+         2   => 'MULTI SELECT 2',
+         3   => 'MULTI SELECT 3',
+     ],
+     attribute   => {
+         size        => '5',
+     }
+ },
+
+Can set many value with array reference.
+
+ $af->params(msel1 => [ 2, 3 ]);
+
+ # <select name="msel1" multiple size="5">
+ # <option value="">MULTI SELECT VOID
+ # <option value="0">MULTI SELECT 0
+ # <option value="1" selected>MULTI SELECT 1
+ # <optionvalue="2" selected>MULTI SELECT 2
+ # <option value="3">MULTI SELECT 3
+ # </select>
+ $af->tag('msel1');
+
+Two options are selected.
+ 
+ # MULTI SELECT BOX 1
+ $af->item_label('msel1');
+
+If you want to get any label, do the following.
+ 
+ # ['MULTI SELECT 1', 'MULTI SELECT 2', 'MULTI SELECT 2']
+ $af->label('msel1', [1,2,3]);
+ 
+ # [ 2, 3 ]
+ $af->value('msel1');
+ 
+ # [ 2, 3 ]
+ $af->direct_value('msel1');
+
+ # [
+ #     'MULTI SELECT 2',
+ #     'MULTI SELECT 3'
+ # ];
+ $af->value_label('msel1');
+ 
+=head2 RADIO
+
+ rd1     => {
+     item_label  => 'RADIO BUTTON 1',
+     type        => 'radio',
+     default     => 2,
+     options     => [
+         ''  => 'RADIO VOID',
+         0   => 'RADIO 0',
+         1   => 'RADIO 1',
+         2   => 'RADIO 2',
+         3   => 'RADIO 3',
+     ],
+     attribute   => [{}, {}, { id => 'hoge' }, {}, {}],
+ },
+
+ $af->params(rd1 => 1);
+ 
+ # [
+ #     '<input type="radio" name="rd1" value="">RADIO VOID',
+ #     '<input type="radio" name="rd1" value="0">RADIO 0',
+ #     '<input type="radio" name="rd1" value="1" id="hoge" checked>RADIO 1',
+ #     '<input type="radio" name="rd1" value="2">RADIO 2',
+ #     '<input type="radio" name="rd1" value="3">RADIO 3'
+ # ];
+ $af->tag('rd1');
+
+The above example, all tag data is output as array reference.
+If you need to get each tag by index, do the following.
+
+When you use in the template at Template::Toolkit, be going to be the following.
+ 
+ [% tag = af.tag('rd1') %]
+ [% tag.0 %][% tag.1 %][% tag.2 %]
+ 
+ # RADIO BUTTON 1
+ $af->item_label('rd1');
+ 
+ # 1
+ $af->value('rd1');
+ 
+ # 1
+ $af->direct_value('rd1')
+
+ # {
+ #     '<input type="radio" name="rd1" value="">RADIO VOID' => 'RADIO VOID',
+ #     '<input type="radio" name="rd1" value="0">RADIO 0' => 'RADIO 0',
+ #     '<input type="radio" name="rd1" value="1" id="hoge" checked>RADIO 1' => 'RADIO 1',
+ #     '<input type="radio" name="rd1" value="2">RADIO 2' => 'RADIO 2',
+ #     '<input type="radio" name="rd1" value="3">RADIO 3' => 'RADIO 3'
+ # };
+ $af->tagmap('rd1');
+
+The tagmap method is not useful, in this case...
+
+=head3 SPLIT MODE
+
+Split mode is useful when you want to split HTML tag and HTML tag value. 
+
+ rd2     => {
+     item_label  => 'RADIO BUTTON 2',
+     type        => 'radio',
+     default     => 2,
+     options     => [
+      ''  => 'RADIO VOID',
+      0   => 'RADIO 0',
+      1   => 'RADIO 1',
+      2   => 'RADIO 2',
+      3   => 'RADIO 3',
+     ],
+     split       => 1,          # <<< look here!!!
+     attribute   => { id => 'hoge' },
+ },
+ 
+ # [
+ #     '<input type="radio" name="rd2" value="" id="hoge">',
+ #     '<input type="radio" name="rd2" value="0" id="hoge">',
+ #     '<input type="radio" name="rd2" value="1" id="hoge" checked>',
+ #     '<input type="radio" name="rd2" value="2" id="hoge">',
+ #     '<input type="radio" name="rd2" value="3" id="hoge">'
+ # ];
+ $af->tag('rd2');
+
+Show, option values aren't displayed. Only HTML tag.
+
+If you want to get option value,
+
+ # RADIO 0
+ $af->label('rd2', 0);
+ 
+In the case of to use the following method, you will be so happy on the Template::Toolkit.
+ 
+ # {
+ #     '<input type="radio" name="rd2" value="" id="hoge">' => 'RADIO VOID',
+ #     '<input type="radio" name="rd2" value="0" id="hoge">' => 'RADIO 0',
+ #     '<input type="radio" name="rd2" value="1" id="hoge" checked>' => 'RADIO 1',
+ #     '<input type="radio" name="rd2" value="2" id="hoge">' => 'RADIO 2',
+ #     '<input type="radio" name="rd2" value="3" id="hoge">' => 'RADIO 3'
+ # };
+ $af->tagmap('rd2');
+ 
+ [% FOREACH f.tagmap('rd2') %]
+     [% key %][% value %]
+ [% END %]
+
+Others are same at non split mode.
+
+ # RADIO BUTTON 2
+ $af->item_label('rd2');
+ 
+ # 1
+ $af->value('rd2');
+ 
+ # 1
+ $af->direct_value('rd2');
+
+=head2 CHECKBOX
+
+ chk1     => {
+     item_label  => 'CHECKBOX 1',
+     type        => 'checkbox',
+     default     => [2,3],
+     options     => [
+         ''  => 'CHECKBOX VOID',
+         0   => 'CHECKBOX 0',
+         1   => 'CHECKBOX 1',
+         2   => 'CHECKBOX 2',
+         3   => 'CHECKBOX 3',
+     ],
+     attribute   => [{}, {}, { id => 'hoge' }, {}, {}],
+ },
+
+Ahh, attribute key can set to each options.
+
+
+ $af->params(chk1 => [1]);
+
+ # [
+ #     '<input type="checkbox" name="chk1" value="">CHECKBOX VOID',
+ #     '<input type="checkbox" name="chk1" value="0">CHECKBOX 0',
+ #     '<input type="checkbox" name="chk1" value="1" id="hoge" checked>CHECKBOX 1',
+ #     '<input type="checkbox" name="chk1" value="2">CHECKBOX 2',
+ #     '<input type="checkbox" name="chk1" value="3">CHECKBOX 3'
+ # ];
+ $af->tag('chk1');
+ 
+ # CHECKBOX 1
+ $af->item_label('chk1');
+ 
+ # [ 1 ];
+ $af->value('chk1');
+ 
+ # [ 1 ];
+ $af->direct_value('chk1');
+ 
+ # {
+ #     '<input type="checkbox" name="chk1" value="">CHECKBOX VOID' => 'CHECKBOX VOID',
+ #     '<input type="checkbox" name="chk1" value="0">CHECKBOX 0' => 'CHECKBOX 0',
+ #     '<input type="checkbox" name="chk1" value="1" id="hoge" checked>CHECKBOX 1' => 'CHECKBOX 1',
+ #     '<input type="checkbox" name="chk1" value="2">CHECKBOX 2' => 'CHECKBOX 2',
+ #     '<input type="checkbox" name="chk1" value="3">CHECKBOX 3' => 'CHECKBOX 3'
+ # };
+ $af->tagmap('chk1');
+
+This type has split mode too.
+See the SPLIT MODE at RADIO section.
+
+=head2 EMAIL
+
+ # email   => {
+ #     item_label  => 'E-MAIL',
+ #     type        => 'email',
+ # },
+
+ $af->params(email => 'hoge@hoge.hoge');
+ 
+ # $VAR1 = '<input type="text" name="email" value="hoge@hoge.hoge" maxlength="255" size="60">';
+ $af->tag('email');
+ 
+ # E-MAIL
+ $af->item_label('email');
+ 
+ # $VAR1 = 'hoge@hoge.hoge';
+ $af->value('email');
+ 
+ # $VAR1 = 'hoge@hoge.hoge';
+ $af->direct_value('email');
+
+=head1 VALIDATE 
+
+=head2 CONFIRM
+
+ confirm_email   => {
+     item_label  => 'E-MAIL',
+     type        => 'email',
+     validation  => {
+         equals  => 'email',
+     },
+ },
+
+{validation}{equals} specify confirm_email value on form need to equal email value on form.
+If to form values have defferent, it is going to be the following.
+
+ $af->check_params;
+
+ # NOT_EQUALS(Wiz::Validator::Config);
+ $af->error('email');
+
+=head2 JOINED VALUE
+
+ foo  => {
+     item_label  => 'FIRST NAME',
+     type        => 'text',
+ },
+ bar   => {
+     item_label  => 'LAST NAME',
+     type        => 'text',
+ },
+ foobar => {
+     item_label  => 'NAME',
+     joined_value   => [qw(foo bar)],
+     validation     => {
+         no_empty   => 1,
+     },
+ },
+
+If you specify joined_value, validation rules of those form values is joined.
+In the case, set error into the autoform instance when first_name field and last_name field is empty.
+
+ $af->params(foo=> 'FOO');
+ $af->check_params;
+ # NO_ERROR
+ $af->error('foobar');
+
+ $af->params(foo => '');
+ $af->check_params;
+ # IS_EMPTY
+ $af->error('foobar');
+
+=head2 SPLIT VALUE ON VALIDATE
+
+ search  => {
+     item_label  => 'SEARCH',
+     split_value_on_validation  => 1,
+     validation    => {
+         is_number => 1,
+     },
+ },
+
+If config has split_value_on_validation => 1,
+parameter value is splited by white space and each value is checked by validator.
+
+=head1 VALUE
+
+=head2 JOINED VALUE
+
+Use same config with JOINED VALUE on VALIDATE section.
+
+When joined_value is Specified, the value method return value to join each value.
+
+ $af->params(foo => 'FOO', bar => 'BAR');
+
+ # FOO
+ $af->value('foo');
+
+ # FOOBAR
+ $af->value('foobar');
+
+ # FOO-BAR
+ $af->value('foobar', '-');
+
+=head1 AUTHOR
+
+Junichiro NAKAMURA, C<< <jyun16@gmail.com> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008 The Wiz Project. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE WIZ PROJECT ``AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED.  IN NO EVENT SHALL THE WIZ PROJECT OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OROTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are
+those of the authors and should not be interpreted as representing official
+policies, either expressed or implied, of the Wiz Project.
+
+Additionally, the followings are recommended for the developers
+to modify/improve/extend Wiz. Please send modified code/patch to mail list,
+wiz-perl@googlegroups.com.
+The source you sent will be merged into Wiz package.
+We welcome anyone who cooperates with us in developing this software.
+
+We'll invite you to this project's member.

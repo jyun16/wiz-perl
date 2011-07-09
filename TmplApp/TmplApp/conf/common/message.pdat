@@ -1,0 +1,14 @@
+{
+    input_encoding  => 'UTF-8',
+    output_encoding => 'UTF-8',
+    encoding        => {
+        input   => {
+            ja  => 'UTF-8',
+        },
+        output  => {
+            ja  => 'UTF-8',
+        },
+    },
+    pre_load        => [qw(ja)],
+    language        => 'ja',
+}

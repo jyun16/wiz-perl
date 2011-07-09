@@ -1,0 +1,6 @@
+<script type="text/javascript" src="[% base %]js/opensocial-jquery-min.js"></script>
+<script type="text/javascript" src="[% base %]js/jquery.layout.min.js"></script>
+<script type="text/javascript" src="[% base %]js/datadumper.js"></script>
+<script type="text/javascript" src="[% base %]js/main.js"></script>
+<script type="text/javascript" src="[% base %]js/pager.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/jquery.layout.css" />

@@ -1,0 +1,14 @@
+[% MACRO errmsg(msg) BLOCK -%]
+[% IF msg %]<span class="error_message">[% msg %]</span>[% END %]
+[%- END %]
+
+[% SET app_name = 'MobileOpenSocialTmpl' %]
+[% SET app_url = 'http://www.mobile_open_social_tmpl.orz' %]
+
+[% MACRO LPROCESS(path) BLOCK -%]
+[% PROCESS "${template_base}${path}" %]
+[%- END %]
+
+[% MACRO LINCLUDE(path) BLOCK -%]
+[% INCLUDE "${template_base}${path}" %]
+[%- END %]

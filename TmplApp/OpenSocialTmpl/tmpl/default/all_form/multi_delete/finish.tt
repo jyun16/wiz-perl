@@ -1,0 +1,22 @@
+[% html = {
+    title       => app_name _ '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+
+<div class="margin_a">
+<h3 class="font_l">削除完了しました</h3><br />
+<a href="javascript:window.close()">閉じる</a>
+</div>
+
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

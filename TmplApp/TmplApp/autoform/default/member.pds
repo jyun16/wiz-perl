@@ -1,0 +1,159 @@
+$member = {
+    id  => $common->{id},
+    userid => {
+        item_label  => 'USERID',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            not_empty           => 1,
+            is_alphabet_number  => 1,
+        },
+    },
+    password => {
+        item_label  => 'PASSWORD',
+        type        => 'password',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            not_empty   => 1,
+            is_alphabet_number  => 1,
+            max_length          => 24,
+        },
+    },
+    confirm_password => {
+        item_label  => 'PASSWORD(confirm)',
+        type        => 'password',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            not_empty   => 1,
+            is_ascii    => 1,
+            equals      => 'password',
+        },
+    },
+    email => {
+        item_label  => 'E-MAIL',
+        type        => 'email',
+        attribute   => {
+        },
+        validation    => {
+            not_empty => 1,
+        },
+    },
+    confirm_email => {
+        item_label  => 'E-MAIL(confirm)',
+        type        => 'email',
+        attribute   => {
+        },
+        validation  => {
+            not_empty   => 1,
+            equals      => 'email',
+        },
+    },
+    last_modified   => $common->{last_modified},
+    created_time    => $common->{created_time},
+};
+
+$member_forms = [qw(
+    userid
+    password
+    email
+)];
+
+$member_list = clone $member;
+$member_list->{_pager} = {
+    type        => 'google',
+    prev_label  => '前',
+    next_label  => '次',
+};
+$member_list->{_sort} = {
+    ignore_validation => 1,
+};
+$member_list->{_skip_not_empty} = 1;
+$member_list->{userid}{validation} = {
+    is_alphabet_number  => 1,
+};
+$member_list->{password}{validation} = {
+};
+$member_list->{confirm_password}{validation} = {
+};
+$member_list->{email}{validation} = {
+    is_ascii    => 1,
+};
+$member_list->{confirm_email}{validation} = {
+};
+$member_list->{_forms} = [
+    'id',
+    @$member_forms,
+    'created_time',
+];
+$member_list->{_search_forms} = [qw(
+    id
+    userid
+    email
+)];
+
+set_attr_id4date_search($member_list, 'created_time', [qw(y m d h mi s)]);
+
+$member_register = clone $member;
+$member_register->{_input_forms} = [qw(
+    userid
+    password
+    confirm_password
+    email
+    confirm_email
+)];
+$member_register->{_input_form_status} = {
+    userid                  => 1,
+    password                => 1,
+    confirm_password        => 1,
+    email                   => 1,
+    confirm_email           => 1,
+};
+$member_register->{_confirm_forms} = [qw(
+    userid
+    password
+    email
+)];
+$member_register->{agree} = {
+    item_label  => '同意する',
+    type        => 'checkbox',
+    attribute   => {
+        id  => 'agree',
+    },
+    options => [
+        1   => '',
+    ],
+};
+
+$member_modify = clone $member;
+$member_modify->{_input_forms} = [qw(
+    userid
+    email
+    confirm_email
+)];
+$member_modify->{_input_form_status} = {
+        userid                  => 1,
+        email                   => 1,
+        confirm_email           => 1,
+};
+$member_modify->{_confirm_forms} = [qw(
+    userid
+    email
+)];
+
+$member_modify_email->{email} = clone $member->{email};
+$member_modify_email->{old_email} = clone $member->{email};
+$member_modify_email->{confirm_email} = clone $member->{email};
+$member_modify_email->{confirm_email}{validation}{equals} = 'email';
+$member_modify_email->{password} = clone $member->{password};
+
+$member_modify_password_send->{email} = clone $member->{email};
+$member_modify_password_send->{confirm_email} = clone $member->{email};

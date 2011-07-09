@@ -1,0 +1,14 @@
+[% html = {
+    title       => '',
+    js          => {
+    }
+} %]
+[% INCLUDE 'mobile/include/html_head.tt' %]
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+TOP ERROR!!!!!!<br>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>
+

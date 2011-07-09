@@ -1,0 +1,14 @@
+$item_type_options  = [
+    1   => 'attack',
+    2   => 'defense',
+    3   => 'recover',
+];
+$item_common = {
+    id      => $common->{id},
+    name    => $common->{name},
+    type    => {
+        item_label  => 'TYPE',
+        type        => 'select',
+        options     => $item_type_options,
+    },
+};

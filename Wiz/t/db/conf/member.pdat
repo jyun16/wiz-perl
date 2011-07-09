@@ -1,0 +1,26 @@
+{
+    priority_flag       => 1,
+    read_priority_flag  => 1,
+    pooling             => 1,
+    log => {
+        stderr  => 1,
+        path    => 'logs/member.log',
+    },
+    master  => [
+        {
+            min_idle        => 4,
+            priority        => 10,
+            read_priority   => 10,
+        },
+    ],
+    slave   => [
+        {
+            min_idle        => 2,
+            priority        => 10,
+        },
+        {
+            min_idle        => 2,
+            priority        => 1,
+        },
+    ],
+}

@@ -1,0 +1,14 @@
+{
+    _extends => [
+        '../../../introduction/common',
+        '../../../common',
+    ],
+    'member_name' => {
+        item_label  => '担当者名',
+        type        => 'text',
+    },
+    'product_name' => {
+        item_label  => '商品名',
+        type        => 'text',
+    },
+}

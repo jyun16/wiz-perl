@@ -1,0 +1,31 @@
+</div>
+
+<div id="footer">
+    <table cellpadding="0" cellspacing="0" width="950">
+    <tr>
+        <td class="align_c box_line_r-m">
+            <a href="#"> 7ppについて </a>
+        </td>
+        <td class="align_c box_line_r-m">
+            <a href="#"> プライバシポリシー </a>
+        </td>
+        <td class="align_c box_line_r-m">
+            <a href="#"> 利用規約 </a>
+        </td>
+        <td class="align_c box_line_r-m">
+            <a href="#"> &nbsp;FAQ&nbsp; </a>
+        </td>
+        <td class="align_c box_line_r-m">
+            <a href="#"> 会社概要 </a>
+        </td>
+        <td class="align_c">
+            <a href="#"> 問い合わせ </a>
+        </td>
+        <td class="align_r">Copyright (C) 2009-2010 7pp All Rights Reserved.</td>
+    </tr>
+    <tr>
+    </table>
+    <p><img src="[% base %]images/footer_bar.gif" width="950" height="4" class="line_effect" /></p>
+</div>
+
+</div>

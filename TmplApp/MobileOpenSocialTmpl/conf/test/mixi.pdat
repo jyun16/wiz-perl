@@ -1,0 +1,8 @@
+{
+    uri_base        => 'http://ma.test.mixi.net/',
+#    uri_base        => 'http://ma.mixi.net/',
+    consumer_key    => '',
+    consumer_secret => '',
+    pubkey          => <<EOS
+EOS
+}

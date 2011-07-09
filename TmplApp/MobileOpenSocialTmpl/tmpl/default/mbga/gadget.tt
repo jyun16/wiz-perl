@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="[% conf.title %]">
+        <Require feature="opensocial-payment" />
+        <Link rel="payment.handler" href="[% base %]mbga/payment_handler" /> 
+    </ModulePrefs>
+    <Content type="url" view="mobile" href="[% base %]mbga/index" />
+</Module>

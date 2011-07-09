@@ -1,0 +1,47 @@
+[% html = {
+    title       => '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+[% FOREACH e = f.errors_messages %]
+[% errmsg(e.key _ ": " _ e.value) %]
+[% END %]
+<form action="index" method="post">
+<div align="center">
+<table cellpadding="0" cellspacing="0" class="input_table">
+[% FOREACH if = f.input_forms -%]
+<tr>
+    <th>
+        [% IF f.input_form_status.item(if) == 1 %]*&nbsp;[%- END -%]
+        [%- f.item_label(if) %]
+    </th>
+    <td>
+        [% f.tag(if) %]<br/>[% errmsg(f.error_message(if)) %]
+    </td>
+</tr>
+[% END -%]
+<tr>
+    <td colspan="2" class="button">
+        <input type="button" value="戻る" />
+        <input type="submit" value="確認" />
+    </td>
+</tr>
+</table>
+<input type="hidden" name="id" value="[% f.value('id') %]">
+<input type="hidden" name="userid" value="[% f.value('userid') %]">
+</div>
+[% secure_token_tag %]
+</form>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

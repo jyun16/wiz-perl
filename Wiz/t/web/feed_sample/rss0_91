@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN"
+            "http://www.rssboard.org/rss-0.91.dtd">
+
+<rss hoge="fuga" version="0.91">
+
+<channel>
+<title>RSS&#x30BF;&#x30A4;&#x30C8;&#x30EB;</title>
+<link></link>
+<description>&#x30C7;&#x30B9;&#x30AF;&#x30EA;&#x30D7;&#x30B7;&#x30E7;&#x30F3;</description>
+<webMaster>JN</webMaster>
+
+<item>
+<title>&#x30BF;&#x30A4;&#x30C8;&#x30EB;111</title>
+<link>http://hoge.com/rss1</link>
+<description>&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4;111</description>
+</item>
+<item>
+<title>&#x30BF;&#x30A4;&#x30C8;&#x30EB;222</title>
+<link>http://hoge.com/rss2</link>
+<description>&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4;222</description>
+</item>
+</channel>
+</rss>

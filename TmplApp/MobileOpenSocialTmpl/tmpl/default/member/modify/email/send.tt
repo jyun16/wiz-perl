@@ -1,0 +1,46 @@
+[% html = {
+    title       => 'Eメールアドレスの再設定',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+
+<form action="[% base %]member/modify/email/send" method="POST">
+<table cellpadding="0" cellspacing="0" class="normal_table_h email_table margin_a">
+    <tr>
+        <th>古い[% f.item_label("old_email") %]を入力してください</th>
+        <td>[% f.tag("old_email") %]<br />[% errmsg(f.error_message("old_email")) %]</td>
+    </tr>
+    <tr>
+        <th>[% f.item_label("password") %]を入力してください</th>
+        <td>[% f.tag("password") %]<br />[% errmsg(f.error_message("password")) %]</td>
+    </tr>
+    <tr>
+        <th>新しい[% f.item_label("email") %]を入力してください</th>
+        <td>[% f.tag("email") %]<br />[% errmsg(f.error_message("email")) %]</td>
+    </tr>
+    <tr>
+        <th>新しい[% f.item_label("email") %]を再度確認してください</th>
+        <td>[% f.tag("confirm_email") %]<br />[% errmsg(f.error_message("confirm_email")) %]</td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2" class="align_c bottom">
+            <input type="button" value="" class="btn_back" style="border: 0px;" onClick="window.history.back();" />
+            <input type="submit" value="" class="btn_submit" style="border: 0px;" />
+        </td>
+    </tr>
+</table>
+<input type="hidden" name="token" value="[% c.req.params.token %]">
+</form>
+
+[% LPROCESS('include/footer.tt') %]
+</body>

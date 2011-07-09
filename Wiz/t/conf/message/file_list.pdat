@@ -1,0 +1,14 @@
+{
+  'en' => {
+    'system_error' => '/mnt/wizperl/Wiz/t/message/en/system.pdat',
+    'system' => '/mnt/wizperl/Wiz/t/message/en/system.pdat',
+    'error' => '/mnt/wizperl/Wiz/t/message/en/error.pdat',
+    'service' => '/mnt/wizperl/Wiz/t/message/en/system.pdat'
+  },
+  'default' => {
+    'system_error' => '/mnt/wizperl/Wiz/t/message/default/system.pdat',
+    'system' => '/mnt/wizperl/Wiz/t/message/default/system.pdat',
+    'error' => '/mnt/wizperl/Wiz/t/message/default/error.pdat',
+    'service' => '/mnt/wizperl/Wiz/t/message/default/system.pdat'
+  }
+}

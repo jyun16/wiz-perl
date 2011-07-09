@@ -1,0 +1,9 @@
+{
+    db              => 'default',
+    expires         => '10d',
+    server          => 'localhost:11115',
+#    servers         => [
+#        'localhost:12111',
+#        'localhost:12112',
+#    ],
+}

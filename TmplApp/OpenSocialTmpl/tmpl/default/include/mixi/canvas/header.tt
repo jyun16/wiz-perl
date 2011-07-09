@@ -1,0 +1,5 @@
+CANVAS_HEADER<br />
+<a href="javascript:show_profile();">Profile</a>
+<a href="javascript:show_friends();">Friends</a>
+<a href="javascript:input_form();">InputForm</a>
+<a href="javascript:app_data();">AppData</a>

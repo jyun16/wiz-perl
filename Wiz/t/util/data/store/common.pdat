@@ -1,0 +1,197 @@
+{
+    '&id'      => {
+        'item_label' => 'ID',
+        'type'       => 'text',
+        'attribute'  => {
+            'maxlength' => 32,
+            'size'      => 32
+        },
+        'validation' => { 'is_number' => 1 }
+    },
+    '&userid'  => {
+        item_label  => 'ユーザーID',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            is_alphabet_number  => 1,
+        },
+    },
+    '&password'  => {
+        item_label  => 'パスワード',
+        type        => 'password',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+            is_ascii    => 1,
+        },
+    },
+    '&email'        => {
+        item_label  => 'Eメールアドレス',
+        type        => 'email',
+        attribute   => {
+        },
+        validation    => {
+        },
+    },
+    '&name'         => {
+        item_label  => '氏名(フルネーム)',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+        },
+    },
+    '&kana'         => {
+        item_label  => 'フリガナ',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation    => {
+        },
+    },
+    '&shop_name'    => {
+        item_label  => 'ショップ名',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+    },
+    '&point'    => {
+        item_label  => 'ポイント',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 5,
+            size        => 9,
+        },
+        filter  => {
+            comma_separated_numeric => 1,
+        },
+    } ,
+    '&product_number' => {
+        item_label  => '商品番号',
+        type        => 'text',
+        attribute   => {
+            size        => 32,
+            maxlength   => 64,
+        },
+    },
+    '&order_number' => {
+        item_label  => '注文番号',
+        type        => 'text',
+        attribute   => {
+            size        => 32,
+            maxlength   => 64,
+        },
+    },
+    '&review_status'    => {
+        item_label  => 'レビューステータス',
+        type        => 'checkbox',
+        options => [
+            -1   => '未レビュー',
+            0   => '審査中',
+            1   => '承認済み',
+            2   => '否認',
+            3   => '対象外',
+        ],
+    },
+    '&start_date' => {
+        item_label  => '',
+        type        => 'datetime',
+        date_only   => 1,
+        default     => 'now',
+        start_year  => 'now',
+        end_year    => 2027,
+        year_order  => 'asc',
+        attribute   => {
+        },
+        filter      => {
+            datetime    => {
+                format => '%Y-%m-%d',
+            },
+        },
+    },
+    '&end_date' => {
+        item_label  => '',
+        type        => 'datetime',
+        date_only   => 1,
+        default     => 'now',
+        start_year  => 'now',
+        end_year    => 2027,
+        year_order  => 'asc',
+        attribute   => {
+        },
+        filter      => {
+            datetime    => {
+                format => '%Y-%m-%d',
+            },
+        },
+    },
+    '&created_time' => {
+        item_label  => 'CREATED TIME',
+        type        => 'text'
+    },
+    '&last_modified' => {
+        item_label  => 'LAST MODIFIED',
+        type        => 'text'
+    },
+    '&delete_flag' => {
+        item_label  => 'DELETE FLAG',
+        type        => 'select',
+        options     => [ 0, 'FALSE', 1, 'TRUE' ]
+    },
+    '&product_cnt' => {
+        item_label  => '登録商品数',
+        type        => 'text',
+    },
+    '&introduction_count' => {
+        item_label  => '紹介記事数',
+        type        => 'text',
+        default     => '0',
+        filter      => {
+            comma_separated_numeric => 1,
+        },
+    },
+    '&review_count' => {
+        item_label  => 'レビュー数',
+        type        => 'text',
+        default     => '0',
+        filter      => {
+            comma_separated_numeric => 1,
+        },
+    },
+    '&click_count'  => {
+        item_label  => 'クリック数',
+        type        => 'text',
+        default     => '0',
+        filter      => {
+            comma_separated_numeric => 1,
+        },
+    },
+    '&conversion_count'  => {
+        item_label  => 'コンバージョン',
+        type        => 'text',
+        default     => '0',
+        filter      => {
+            comma_separated_numeric => 1,
+        },
+    },
+    '&conversion_rate'  => {
+        item_label  => 'CVR',
+        type        => 'text',
+        default     => '0',
+    },
+    '&blog_title' => {
+        item_label  => 'ブログタイトル',
+        type        => 'text',
+    },
+}

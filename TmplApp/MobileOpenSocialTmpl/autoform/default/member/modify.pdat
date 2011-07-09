@@ -1,0 +1,17 @@
+{
+    _extends    => '../common',
+    _input_forms    => [qw(
+        userid
+        email
+        confirm_email
+    )],
+    _input_form_status  => {
+        userid                  => 1,
+        email                   => 1,
+        confirm_email           => 1,
+    },
+    _confirm_forms  => [qw(
+        userid
+        email
+    )],
+}

@@ -1,0 +1,8 @@
+LICENSE
+MANIFEST
+Makefile.PL
+README
+lib/Wiz/Test.pm
+lib/Wiz/Test/Filter.pm
+t/00-load.t
+t/pod.t

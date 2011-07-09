@@ -1,0 +1,7 @@
+{
+    validate    => {
+        not_null    => 'NOT NULL',
+        not_number  => 'NOT NUMBER',
+        not_empty   => '空じゃいけないです',
+    },
+}

@@ -1,0 +1,49 @@
+[% html = {
+    title       => 'Eメールアドレスの再設定',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<form action="[% base %]member/modify/password/index" method="POST">
+<h3>Eメールアドレスの再設定</h3>
+<table cellpadding="0" cellspacing="0" class="normal_table_h email_table margin_a">
+    <tr>
+        <th>[% f.item_label("email") %]</th>
+        <td>[% f.tag("email") %]<br />[% errmsg(f.error_message("email")) %]</td>
+    </tr>
+    <tr>
+        <th>[% f.item_label("email") %]を再度確認してください</th>
+        <td>[% f.tag("confirm_email") %]<br />[% errmsg(f.error_message("confirm_email")) %]</td>
+    </tr>
+    <tr>
+        <th>新しいパスワード:</th>
+        <td>[% f.tag("password") %]<br />[% errmsg(f.error_message("password")) %]</td>
+    </tr>
+    <tr>
+        <th>新しいパスワードを再入力:</th>
+        <td>[% f.tag("confirm_password") %]<br />[% errmsg(f.error_message("confirm_password")) %]</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <span class="notification_orange"> 半角英数字4文字以上24文字以内 </span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="align_c bottom">
+            <input type="submit" value="" class="btn_submit" style="border: 0px;" />
+        </td>
+    </tr>
+</table>
+<input type="hidden" name="token" value="[% c.req.params.token %]">
+</form>
+[% LPROCESS('include/footer.tt') %]
+</body>

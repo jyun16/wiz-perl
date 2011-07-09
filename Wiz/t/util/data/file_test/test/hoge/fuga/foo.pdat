@@ -1,0 +1,6 @@
+{
+    _extends    => '../xxx',
+    bar     => 'BAR',
+    yyy     => 'XXXXXX',
+    zzz     => '*ddd',
+}

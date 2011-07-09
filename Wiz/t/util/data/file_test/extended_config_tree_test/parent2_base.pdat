@@ -1,0 +1,5 @@
+{
+    '&parent2' => {
+        parent2_data =>'PARENT2',
+    },
+}

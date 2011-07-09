@@ -1,0 +1,7 @@
+yaml_hash:
+    yaml_key01: yaml_value01
+    yaml_key02: yaml_value02
+    yaml_key03_array:
+        - val1
+        - val2
+        - val3

@@ -1,0 +1,5 @@
+{
+    hoge    => 'HOGE',
+    fuga    => 'FUGA',
+    foo     => 'FOO',
+}

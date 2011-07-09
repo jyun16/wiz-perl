@@ -1,0 +1,55 @@
+[% html = {
+    title       => app_name _ '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<form action="confirm" method="post">
+<div align="center">
+<table cellpadding="0" cellspacing="0" class="input_table">
+[% SET form_type = "" -%]
+[% FOREACH fn = f.confirm_forms -%]
+[% form_type = f.form_type(fn) -%]
+<tr>
+    <th>
+        [% f.item_label(fn) %]
+    </th>
+    <td>
+        [% IF form_type == "multiselect" || form_type == "radio" || form_type == "checkbox" -%]
+            [% FOREACH l = f.html_value(fn) %]
+                [% l %][% IF !loop.last %]<br />[% END %]
+            [% END -%]
+            [% IF !d.html_value(fn); '&nbsp'; END -%] 
+        [% ELSIF form_type == "password" -%]
+            [% f.html_value(fn) | pw %]
+        [% ELSE -%]
+            [% f.html_value(fn) %]
+        [% END -%]
+        <br />
+    </td>
+</tr>
+[% END -%]
+<tr>
+    <td colspan="2" class="button">
+        <input type="button" value="戻る" onClick="window.history.back();" />
+        [% IF f.mode == 'modify' -%]
+        <input type="submit" value="編集" />
+        [% ELSE -%]
+        <input type="submit" value="登録" />
+        [% END -%]
+    </td>
+</tr>
+</table>
+[% secure_token_tag %]
+</div>
+</form>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

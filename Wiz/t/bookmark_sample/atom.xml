@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed
+ xmlns="http://purl.org/atom/ns#" xml:lang="ja"
+ xmlns:opensearch="http://a9.com/-/spec/opensearchrss/1.0/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+>
+  <title>hogeのブックマーク</title>
+  <link type="text/html" rel="alternate" href="http://b.hatena.ne.jp/hoge/"/>
+  <link type="application/x.atom+xml" rel="service.post" href="http://b.hatena.ne.jp/atom/post" title="hogeのブックマーク"/>
+  <entry>
+    <id>tag:hatena.ne.jp,2005:bookmark-wolfbash-9774306</id>
+    <title>HEAVEN ローブの下に15キロの爆薬。自爆テロを目論んだ15歳の少女の映像が公開</title>
+    <link type="text/html" rel="related" href="http://chiquita.blog17.fc2.com/blog-entry-3503.html"/>
+    <link type="text/html" rel="alternate" href="http://b.hatena.ne.jp/wolfbash/20080826#bookmark-9774306"/>
+    <link type="application/x.atom+xml" rel="service.edit" title="HEAVEN ローブの下に15キロの爆薬。自爆テロを目論んだ15歳の少女の映像が公開" href="http://b.hatena.ne.jp/atom/edit/9774306"/>
+    <summary></summary>
+    <issued>2008-08-26T12:54:06+09:00</issued>
+    <author>
+      <name>hoge</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:hatena.ne.jp,2005:bookmark-wolfbash-9772419</id>
+    <title>アクセス解析がダメな７つの理由（前半） - リアルアクセス解析</title>
+    <link type="text/html" rel="related" href="http://d.hatena.ne.jp/ryuka01/20080826/p1"/>
+    <link type="text/html" rel="alternate" href="http://b.hatena.ne.jp/wolfbash/20080826#bookmark-9772419"/>
+    <link type="application/x.atom+xml" rel="service.edit" title="アクセス解析がダメな７つの理由（前半） - リアルアクセス解析" href="http://b.hatena.ne.jp/atom/edit/9772419"/>
+    <summary></summary>
+    <issued>2008-08-26T12:46:14+09:00</issued>
+    <author>
+      <name>hoge</name>
+    </author>
+    <dc:subject>Hoge</dc:subject>
+    <dc:subject>Fuga</dc:subject>
+  </entry>
+</feed>

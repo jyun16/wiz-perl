@@ -1,0 +1,87 @@
+$common = {
+    id  => {
+        item_label  => 'ID',
+        type        => 'text',
+        validation    => {
+            is_number   => 1,
+        },
+    },
+    name => {
+        item_label  => 'NAME',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 255,
+            size        => 32,
+        },
+    },
+    userid => {
+        item_label  => 'ユーザーID',
+        type        => 'text',
+        attribute   => {
+            maxlength   => 34,
+            size        => 28,
+        },
+        validation    => {},
+    },
+    password => {
+        item_label  => 'PASSWORD',
+        type        => 'password',
+        attribute   => {
+            maxlength   => 32,
+            size        => 32,
+        },
+        validation  => {
+            is_ascii    => 1,
+        },
+    },
+    description => {
+        item_label  => 'DESCRIPTION',
+        type        => 'textarea',
+        attribute   => {
+            rows    => 7,
+            cols    => 80,
+        },
+    },
+    image => {
+        item_label  => 'IMAGE',
+        type        => 'file',
+        attribute   => {
+            maxlength   => 34,
+            size        => 28,
+        },
+    },
+    created_time => {
+        item_label      => 'CREATED TIME',
+        type            => 'datetime',
+        default         => undef,
+        year_order      => 'asc',
+        start_year      => 2010,
+        end_year        => 2027,
+        format          => '',
+        empty           => '-',
+        attribute   => {
+        },
+        validation    => {
+        },
+        attribute   => [
+            {
+                id  => 'created_time_y',
+            },
+            {
+                id  => 'created_time_m',
+            },
+            {
+                id  => 'created_time_d',
+            },
+            {
+                id  => 'created_time_h',
+            },
+            {
+                id  => 'created_time_mi',
+            },
+            {
+                id  => 'created_time_s',
+            },
+        ],
+    },
+};

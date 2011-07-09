@@ -1,0 +1,49 @@
+[% html = {
+    title       => '',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+
+<form method="POST" action="confirm">
+<table cellpadding="0" cellspacing="0" class="normal_table_h register_table margin_a">
+[% SET form_type = "" -%]
+[% FOREACH fn = f.confirm_forms -%]
+[% form_type = f.form_type(fn) -%]
+<tr>
+    <th>
+        [% f.item_label(fn) %]
+    </th>
+    <td>
+        [% IF form_type == "password" -%]
+            [% IF f.html_value(fn) -%]
+            [% f.html_value(fn) | pw %]
+            [% ELSE; '&nbsp;'; END -%]
+        [% ELSE -%]
+            [% f.html_value(fn) || '&nbsp;' %]
+        [% END -%]
+        <br/>
+    </td>
+</tr>
+[% END %]
+<tr>
+    <td colspan="2" class="align_c bottom">
+        <input type="button" value="" class="btn_back" style="border: 0px;" onClick="window.history.back();" />
+        <input type="submit" value="" class="btn_confirm" style="border: 0px;" />
+    </td>
+</tr>
+</table>
+</form>
+
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

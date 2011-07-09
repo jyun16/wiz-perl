@@ -1,0 +1,9 @@
+{
+    _extends_file => [ './parent1_base', './parent2_base' ],
+    '*parent1:parent1' => {
+        parent1_data    => 'FUGA',
+    },
+    hoge    => {
+        HOGE => 'HOGE',
+    },
+}

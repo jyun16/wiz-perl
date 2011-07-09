@@ -1,0 +1,16 @@
+$member_common = copy_conf(
+    $common, qw(
+        id
+        name
+        userid
+        password
+        created_time
+    )
+);
+
+$member_list = $member_common;
+$member_register = clone $member_common;
+
+for (qw(id userid passwd)) {
+    $member_register->{$_}{validation}{is_not_null} = 1;
+}

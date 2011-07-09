@@ -1,0 +1,17 @@
+[% html = {
+    title       => '',
+    js          => {
+    }
+} %]
+[% INCLUDE 'mobile/include/html_head.tt' %]
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+ERROR!!!!!!<br>
+<font color='red'>[% msg | html %]</font>
+{emoji:晴れ}<br>
+{emoji:ゴルフ}<br>
+日本語でおｋ<br>
+[% LPROCESS('include/footer.tt') %]
+</body>
+</html>

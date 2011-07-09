@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+<head>
+    <title>livedoor Reader Subscriptions</title>
+    <dateCreated>Fri, 11 Dec 2009 14:26:05 UTC</dateCreated>
+    <ownerName>hoge</ownerName>
+</head>
+<body>
+<outline title="Subscriptions">
+    <outline title="気負わない日記" htmlUrl="http://d.hatena.ne.jp/obys/" type="rss" xmlUrl="http://d.hatena.ne.jp/obys/searchdiary?word=%2A%5Bvim%5D&amp;mode=rss" />
+    <outline title="other">
+        <outline title="Fatadam.com - Random Stuff" htmlUrl="http://www.fatadam.com" type="rss" xmlUrl="http://www.fatadam.com/feed/" />
+    </outline>
+    <outline title="aho">
+        <outline title="帰ってきたワロスニッキ" htmlUrl="http://blog.livedoor.jp/warosunikki/" type="rss" xmlUrl="http://blog.livedoor.jp/warosunikki/index.rdf" />
+        <outline title="【2ch】ニュー速VIPブログ(`･ω･´)" htmlUrl="http://blog.livedoor.jp/insidears/" type="rss" xmlUrl="http://blog.livedoor.jp/insidears/atom.xml" />
+        <outline title="日刊スレッドガイド" htmlUrl="http://guideline.livedoor.biz/" type="rss" xmlUrl="http://guideline.livedoor.biz/index.rdf" />
+    </outline>
+</outline>
+</body></opml>

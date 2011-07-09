@@ -1,0 +1,40 @@
+{
+    _extends        => '../common',
+    _input_forms => [qw(
+        text
+        password
+        textarea
+        select1
+        multi_select
+        radio1
+        radio2
+        checkbox
+        email
+        confirm_email
+        first_name
+        last_name
+        date1
+        date2
+        time1
+        datetime1
+    )],
+    _input_form_status  => {
+    },
+    _confirm_forms  => [qw(
+        text
+        password
+        textarea
+        select1
+        multi_select
+        radio1
+        radio2
+        checkbox
+        email
+        first_name
+        last_name
+        date1
+        date2
+        time1
+        datetime1
+    )],
+}

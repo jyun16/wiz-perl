@@ -1,0 +1,25 @@
+[% html = {
+    title       => 'パスワード再設定メール送信完了',
+    keywords    => '',
+    js          => {
+        jquery                  => 1,
+    }
+} %]
+[% INCLUDE 'include/html_head.tt' %]
+<script type="text/javascript">
+$(function() {
+});
+</script>
+</head>
+<body>
+[% LPROCESS('include/header.tt') %]
+<div align="center">
+<h3 class="font_l">パスワード再設定メール送信完了</h3><br />
+<img src="[% base %]images/material/mail_photo.gif" height="88" width="91" /> <br /><br />
+お客様の入力したEメールアドレスと当社が記録する情報が関連付けられている場合、<br />
+パスワードを再設定する手順が記載されたEメールを送信しました。
+<br />
+このEメールを受信出来ない場合は、お客様の迷惑メールフォルダを確認して下さい。<br />
+</div>
+[% LPROCESS('include/footer.tt') %]
+</body>

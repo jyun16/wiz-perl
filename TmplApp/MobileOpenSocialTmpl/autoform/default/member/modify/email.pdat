@@ -1,0 +1,30 @@
+{
+    _extends    => '../../../common',
+    '*old_email:email'  => {
+        validation    => {
+            not_empty   => 1,
+        },
+    },
+    '*email:email'  => {
+        validation    => {
+            not_empty   => 1,
+        },
+    },
+    '*confirm_email:email'  => {
+        item_label  => 'Eメールアドレス',
+        type        => 'email',
+        attribute   => {
+        },
+        validation    => {
+            not_empty   => 1,
+            equals      => 'email',
+        },
+    },
+    '*password:password'  => {
+        validation    => {
+            not_empty           => 1,
+            is_alphabet_number  => 1,
+            max_length          => 24,
+        },
+    },
+}

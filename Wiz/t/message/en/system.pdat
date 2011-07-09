@@ -1,0 +1,18 @@
+{
+    system  => {
+        start   => '開始',
+    },
+    system_error    => {
+        segmentation_fault  => 'Segmantation fault',
+        no_such_directory   => 'No such directory',
+    },
+    service => {
+        regist  => {
+            error   => {
+                first_name  => {
+                    not_null    => 'Please input your first name',
+                },
+            },
+        }
+    },
+}

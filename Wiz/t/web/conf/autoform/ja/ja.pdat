@@ -1,0 +1,41 @@
+{
+    prefecture      => {
+        empty       => '選択してください',
+        item_label  => '都道府県',
+        type        => 'prefecture',
+        validation    => {
+        },
+    },
+    job             => {
+        empty       => '選択してください',
+        item_label  => '職業',
+        type        => 'job',
+        validation    => {
+        },
+    },
+    hobby           => {
+        item_label  => '趣味',
+        type        => 'hobby',
+        validation    => {
+        },
+    },
+    ta => {
+        item_label  => 'TEXTAREA',
+        type        => 'textarea',
+        attribute   => {
+            cols        => 80,
+            rows        => 6,
+        },
+        validation    => {
+            max_length  => 10,
+        },
+    },
+    zip_code    => {
+        item_label  => 'ZIP CODE',
+        type        => 'zip_code',
+    },
+    phone_number    => {
+        item_label  => 'PHONE NUMBER',
+        type        => 'phone_number',
+    },
+},

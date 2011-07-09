@@ -1,0 +1,122 @@
+<script type='text/javascript'>
+var formLayout;
+$(function() {
+    formLayout = $('body').layout({
+        closable: false
+        ,resizable: false
+        ,slidable: false
+        ,north__size: 40
+        ,north__spacing_open: 0
+        ,north__resizable: false
+        ,south__size: 20
+        ,south__spacing_open: 0
+        ,south__resizable: false
+    });
+});
+</script>
+<script type="text/javascript">
+[% FOREACH k = conf.actions %]
+function before_[% k %]() {}
+function after_[% k %]() {}
+function [% k %]() {
+    before_[% k %]();
+    $('#main').html("[% load_tt4js(k) %]");
+    after_[% k %]();
+}
+[% END %]
+
+function after_show_profile() {
+    $.getData('/people/@owner/@self', {}, function(people) {
+        var person = people[0];
+        $('#owner_profile').html(
+            '<a href="http://mixi.jp/show_friend.pl?id=' + person.id + '" target="_blank">'
+            + htmlEscape(person.nickname)
+            + '<img src="' + person.thumbnailUrl + '"></a>'
+        );
+    });
+    $.getData('/people/@viewer/@self', {}, function(people) {
+        var person = people[0];
+        $('#viewer_profile').html(
+            '<a href="http://mixi.jp/show_friend.pl?id=' + person.id + '" target="_blank">'
+            + htmlEscape(person.nickname)
+            + '<img src="' + person.thumbnailUrl + '"></a>'
+        );
+    });
+}
+
+function after_show_friends() {
+    friendsPagerFunction(1);
+}
+
+function friendsPagerFunction(page) {
+    var friendsPager = new Pager();
+    friendsPager.limit = 5;
+    friendsPager.pagerFunction = 'friendsPagerFunction';
+    friendsPager.setNowPage(page);
+    $.getData('/people/@viewer/@friends',
+    {
+        startIndex: friendsPager.offset,
+        count: friendsPager.limit
+    },
+    function(people) {
+        friendsPager.total = people.totalResults;
+        var html = new Array();
+        html.push('<ul>');
+        for (var i = 0; i < people.length; i++) {
+            var person = people[i];
+            html.push(
+                '<li><a href="http://mixi.jp/show_friend.pl?id=' + person.id + '" target="_blank">'
+                + '<img src="' + person.thumbnailUrl + '">'
+                + htmlEscape(person.nickname) + '</a></li>'
+            );
+        }
+        html.push('</ul>');
+        $('#pager_info').html(friendsPager.toInfoString());
+        $('#pager').html(friendsPager.toString());
+        $('#friends').html(html.join(''));
+    });
+}
+
+function saveAppData() {
+    $.postData('/appdata/@viewer/@self', {
+        hoge: $('#text').val()
+    }, function() {});
+}
+
+function loadAppData() {
+    $.getData('/appdata/@viewer/@self', {}, function(data) {
+        $('#app_data').html(Dumper(data));
+    });
+}
+
+function saveInputForm() {
+    $.post('http://7pp.orz.hm:10080/mixi/save_input_form signed', {
+        text: $('#text').val(),
+        textarea: $('#textarea').val() 
+    },
+    function(data, status) {}, 'json');
+}
+
+function loadInputForm() {
+    $.postData('/appdata/@viewer/@self', {
+        hoge: $('#text').val()
+    }, function() {});
+}
+
+jQuery(function($) {
+    //show_friends();
+    //app_data();
+    input_form();
+    $(window).height(600);
+});
+
+</script>
+<div class='ui-layout-center'>
+    <div id='main'>HOME</div>
+</div>
+<div class='ui-layout-north'>
+[% LPROCESS('include/mixi/canvas/header.tt') %]
+</div>
+<div class='ui-layout-south'>
+[% LPROCESS('include/mixi/canvas/footer.tt') %]
+</div>

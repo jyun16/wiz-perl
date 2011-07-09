@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+[% IF html.keywords != "" -%]
+<meta name="Keywords" content="[% html.keywords %]" />
+[% END -%]
+[% IF html.description != "" -%]
+<meta name="Description" content="[% html.description %]" />
+[% END -%]
+<script type="text/javascript" src="[% base %]js/main.js"></script>
+<script type="text/javascript" src="http[% IF c.req.secure %]s[% END %]://www.google.com/jsapi"></script>
+[% IF html.js.jquery -%]
+<script type="text/javascript">google.load("jquery", "1.3");</script>
+[% END -%]
+[% IF html.js.dumper != "" -%]
+<script type="text/javascript" src="[% base %]js/datadumper.js"></script>
+[% END -%]
+[% IF html.js.jquery_ui -%]
+<script type="text/javascript">google.load("jqueryui", "1.7");</script>
+[% END -%]
+[% IF html.js.jquery_nyro_modal -%]
+<script type="text/javascript" src="[% base %]js/jquery.nyroModal-1.6.2.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/nyroModal.css" />
+[% END -%]
+[% IF html.js.jquery_layout -%]
+<script type="text/javascript" src="[% base %]js/jquery.layout.min.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/jquery.layout.css" />
+[% END -%]
+[% IF html.js.jquery_blockui -%]
+<script type="text/javascript" src="[% base %]js/jquery.blockUI.js"></script>
+[% END -%]
+[% IF html.js.jquery_rating -%]
+<script type="text/javascript" src="[% base %]js/jquery.rating.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]css/jquery.rating.css" />
+[% END -%]
+[% IF html.js.jquery_hotkeys -%]
+<script type="text/javascript" src="[% base %]js/jquery.hotkeys.min.js"></script>
+[% END -%]
+[% IF html.js.jquery_cookie -%]
+<script type="text/javascript" src="[% base %]js/jquery.cookie.js"></script>
+[% END -%]
+[% IF html.js.jquery_tojson -%]
+<script type="text/javascript" src="[% base %]js/jquery.tojson.js"></script>
+[% END -%]
+[% IF html.js.jquery_alphanumeric -%]
+<script type="text/javascript" src="[% base %]js/jquery.alphanumeric.pack.js"></script>
+[% END -%]
+[% IF html.js.jquery_jcal -%]
+<script language="JavaScript" type="text/javascript" src="[% base %]jquery-jcal/jCal.js"></script> 
+<link rel="stylesheet" type="text/css" href="[% base %]jquery-jcal/jCal.small.css"> 
+[% END -%]
+[% IF html.js.jquery_alerts -%]
+<script type="text/javascript" src="[% base %]jquery-alerts/jquery.alerts.js"></script>
+<link rel="stylesheet" type="text/css" href="[% base %]jquery-alerts/jquery.alerts.css" />
+[% END -%]
+[% IF html.js.printf -%]
+<script type="text/javascript" src="[% base %]js/printf.js"></script>
+[% END -%]
+[% IF html.js.dateutil -%]
+<script type="text/javascript" src="[% base %]js/dateutil.js"></script>
+[% END -%]
+[% IF html.js.dateformat -%]
+<script type="text/javascript" src="[% base %]js/dateformat.js"></script>
+[% END -%]
+[% IF html.js.tinymce -%]
+<script type="text/javascript" src="[% base %]tiny_mce/jquery.tinymce.js"></script>
+[% END -%]
+[% IF html.js.jstree -%]
+<script type="text/javascript" src="[% base %]js/jsTree/lib/jquery.metadata.js"></script>
+<script type="text/javascript" src="[% base %]js/jsTree/lib/sarissa.js"></script>
+<script type="text/javascript" src="[% base %]js/jsTree/jquery.tree.min.js"></script>
+<script type="text/javascript" src="[% base %]js/jsTree/plugins/jquery.tree.contextmenu.js"></script> 
+[% END -%]
+<link rel="stylesheet" type="text/css" href="[% base %]css/main.css" />
+<link rel="shortcut icon" href="[% base %]favicon.ico" />
+<link rel="icon" href="[% base %]favicon.ico" type="image/x-icon" />
+<title>[% html.title %]</title>

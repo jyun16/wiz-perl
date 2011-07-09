@@ -1,0 +1,5 @@
+AppData: <br>
+<div id='app_data'></div>
+<input type='text' id='text'><br>
+<input type='button' value='save' onClick='saveAppData();'>
+<input type='button' value='load' onClick='loadAppData();'>

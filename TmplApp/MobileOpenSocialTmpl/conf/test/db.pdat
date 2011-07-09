@@ -1,0 +1,33 @@
+{
+    type    => 'mysql',
+    user    => 'root',
+    passwd  => '',
+#    type    => 'pg',
+#    user    => 'test',
+#    passwd  => 'hoge',
+    db      => 'mobile_open_social_tmpl',
+    handler_socket  => {
+        read    => 9998,
+        write   => 9999,
+    },
+    master  => [
+        {
+            log     => {
+                stack_dump  => 1,
+                stderr      => 1,
+                path        => 'logs/db_master.log',
+                level       => 'warn',
+            },
+        }
+    ],
+    slave   => [
+        {
+            log     => {
+                stack_dump  => 1,
+                stderr      => 1,
+                path        => 'logs/db_slave.log',
+                level       => 'warn',
+            },
+        },
+    ],
+}

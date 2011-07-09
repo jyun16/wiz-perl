@@ -1,0 +1,234 @@
+body {
+    color:#3f97dc;
+    font-size:12px;
+}
+
+a:link,
+a:active,
+a:visited {
+    color:#3f97dc;
+}
+a:hover {
+    color:#fba300;
+    text-decoration: underline;
+}
+
+h1,h2,h3,h4 {
+    color:#0000ff;
+}
+
+#logo {
+    font-weight:bold;
+    float:left;
+}
+
+#login_link { 
+    float:right;
+    font-size:60%;
+    font-weight:bold;
+    clear: both;
+}
+
+#copyright {
+    font-size:60%;
+    float:right;
+}
+
+div.hr {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    border: #3f97dc 1px solid;
+}
+
+div.code {
+    margin: 1em;
+    padding: 0.5em;
+    border: #a1d8ff 2px solid;
+    background-color: #c4e7ff;
+}
+
+.jquery-hover-toggle-off {
+    color:#0000ff;
+    border:1px solid #0000ff;
+    background-color:#d0e4ff;
+}
+
+.jquery-hover-toggle-on {
+    color:#d0e4ff;
+    border:1px solid #d0e4ff;
+    background-color:#0000ff;
+}
+
+input.button {
+   color:#0000ff;
+   background-color:#d0e4ff;
+   border-style:solid;
+   border-color:#0000ff;
+}
+
+input.text {
+    color:#0000ff;
+    font-size: 90%;
+}
+
+div.pager {
+    font-size:80%;
+    font-weight:bold;
+    color:#0000ff;
+}
+
+div.sort {
+    font-size:80%;
+    font-weight:bold;
+    color:#0000ff;
+}
+
+.clear_float {
+    clear:both;
+    height:0px;
+}
+
+.icon {
+    border: 0px;
+    text-decoration: none;
+}
+
+.alert_message {
+    color:#ff1493;
+    font-weight:bold;
+    font-size:90%;
+}
+
+.error_message {
+    color:#ff1493;
+    font-weight:bold;
+    font-size:90%;
+}
+
+.icon-error {
+    background: url("../images/sexyalertbox/dialog-error.png") no-repeat;
+    padding: 5px 50px;
+}
+
+h1.error_message,h2.error_message,h3.error_message,h4.error_message,.error_message {
+    color:#ff1493;
+    border: 0px;
+    font-weight:bold;
+}
+
+table.input_table {
+    margin-left:10px;
+    border:1px #3f97dc solid;
+    border-collapse:collapse;
+}
+table.input_table th {
+    color:#3f97dc;
+    margin:0px;
+    padding:5px;
+    background-color:#eaf3fb;
+    border-right:1px #3f97dc solid;
+    border-bottom:1px #3f97dc  solid;
+    text-align: left;
+}
+table.input_table th a:link,
+table.input_table th a:active,
+table.input_table th a:visited {
+    color:#3f97dc;
+    text-decoration: underline;
+}
+table.input_table a:hover {
+    color:#fba300;
+    text-decoration: underline;
+}
+table.input_table td {
+    margin:0px;
+    padding:5px;
+    border-right:1px #3f97dc solid;
+    border-bottom:1px #3f97dc  solid;
+    text-align: left;
+}
+table.input_table td.button {
+    margin:0px;
+    padding:5px;
+    border-right:1px #3f97dc solid;
+    border-bottom:1px #3f97dc  solid;
+    text-align: center;
+}
+table.input_table .box {
+    padding: 2px;
+    margin: 2px;
+    border: 1px #ebebeb solid;
+    background-color: #ebebeb;
+    list-style: none;
+}
+table.input_table .moveable_box {
+    padding: 2px;
+    margin: 2px;
+    border: 1px #ebebeb solid;
+    background-color: #ebebeb;
+    list-style: none;
+    cursor: move;
+}
+
+div.grid_pager {
+    margin:10px 0px 0px 10px;
+}
+table.grid_table {
+    margin:5px 0px 0px 10px;
+    border:1px #3f97dc solid;
+    border-collapse:collapse;
+}
+table.grid_table th {
+    color:#3f97dc;
+    margin:0px;
+    padding:5px;
+    background-color:#eaf3fb;
+    border-right:1px #3f97dc solid;
+    border-bottom:1px #3f97dc  solid;
+}
+table.grid_table th a:link,
+table.grid_table th a:active,
+table.grid_table th a:visited {
+    color:#3f97dc;
+    text-decoration: underline;
+}
+table.grid_table a:hover {
+    color:#fba300;
+    text-decoration: underline;
+}
+table.grid_table td {
+    margin:0px;
+    padding:5px;
+    border-right:1px #3f97dc solid;
+    border-bottom:1px #3f97dc  solid;
+}
+.grid_table_odd {
+    background-color: #ffffff;
+    border-right:1px #cccccc solid;
+    border-bottom:1px #cccccc solid;
+}
+.grid_table_even {
+    background-color: #f9f9f9;
+    border-right:1px #cccccc solid;
+    border-bottom:1px #cccccc solid;
+}
+.grid_table_summary {
+    background-color: #fbfcd0;
+    border-right:1px #cccccc solid;
+    border-bottom:1px #cccccc solid;
+    font-weight: bold;
+}
+
+.star_sprite {
+    height:16px;
+    width:16px;
+    background:url(../images/jquery_rating/single-star-mini.png) no-repeat;
+    margin-left: 4px;
+    padding-left: 12px;
+}
+
+.article_box {
+    padding: 4px;
+    margin: 4px;
+    border: 1px solid #3f97dc;
+}

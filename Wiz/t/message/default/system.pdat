@@ -1,0 +1,18 @@
+{
+    system  => {
+        start   => '開始',
+    },
+    system_error    => {
+        segmentation_fault  => 'セグメンテーションフォルト',
+        no_such_directory   => 'ディレクトリがありません',
+    },
+    service => {
+        regist  => {
+            error   => {
+                first_name  => {
+                    not_null    => '名前を入力してください',
+                },
+            },
+        }
+    },
+}

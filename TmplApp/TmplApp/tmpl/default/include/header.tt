@@ -1,0 +1,27 @@
+<div id="wrapper">
+<div id="header">
+<div class="fleft">
+    <a href="[% base %]"> <img src="[% base %]images/logo.png" border="0" /> </a>
+</div>
+<div id="header_text">
+[% IF c.logined || c.logined('admin') -%]
+    [% IF c.logined('admin') %]
+        [% u = c.u('admin') %]
+    [% END %]
+    ようこそ [% u.userid %]さん -
+    [% IF u.label == "admin" -%] <a href="[% base %]admin/logout">ログアウト</a>
+    [% ELSE -%] <a href="[% base %]logout">ログアウト</a> [% END -%]
+[% ELSE -%]
+    [% IF c.req.path.match('^/admin') -%]
+        <a href="[% base %]admin/login">ログイン</a>
+    [% ELSE -%]
+        <a href="[% base %]member/invite/index">ユーザー登録[invite形式]</a>&nbsp;or&nbsp;
+        <a href="[% base %]member/register/index">ユーザー登録</a>&nbsp;or&nbsp;
+        <a href="[% base %]login">ログイン</a>
+    [% ELSE -%]
+[% END -%]
+</div>
+<br class="clearfix" />
+</div>
+<p class="paddingb_l"><img src="[% base %]images/footer_bar.gif" width="950" height="4"  class="line_effect" /></p>
+<div id="contents">

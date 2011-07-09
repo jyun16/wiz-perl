@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rss version="2.0"
+ xmlns:blogChannel="http://backend.userland.com/blogChannelModule"
+ xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+ xmlns:content="http://purl.org/rss/1.0/modules/content/"
+ xmlns:atom="http://www.w3.org/2005/Atom"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+>
+
+<channel>
+<title>RSS&#x30BF;&#x30A4;&#x30C8;&#x30EB;</title>
+<link></link>
+<description>&#x30C7;&#x30B9;&#x30AF;&#x30EA;&#x30D7;&#x30B7;&#x30E7;&#x30F3;</description>
+<webMaster>JN</webMaster>
+
+<item>
+<title>&#x30BF;&#x30A4;&#x30C8;&#x30EB;111</title>
+<link>http://hoge.com/rss1</link>
+<description>&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4;111</description>
+<guid isPermaLink="true">http://hoge.com/rss1</guid>
+<pubDate>Sun, 11 Oct 2009 22:33:44 +0900</pubDate>
+<content:encoded>&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4;111</content:encoded>
+<dcterms:modified>2009-10-11T22:33:44+09:00</dcterms:modified>
+</item>
+<item>
+<title>&#x30BF;&#x30A4;&#x30C8;&#x30EB;222</title>
+<link>http://hoge.com/rss2</link>
+<description>&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4;222</description>
+<guid isPermaLink="true">http://hoge.com/rss2</guid>
+<pubDate>Mon, 14 Dec 2009 13:39:21 +0900</pubDate>
+<content:encoded>&#x30B3;&#x30F3;&#x30C6;&#x30F3;&#x30C4;222</content:encoded>
+<dcterms:modified>2009-12-14T13:39:21+09:00</dcterms:modified>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,26 @@
+{
+    type    => 'mysql',
+    db      => 'mobile_tmpl',
+    user    => 'root',
+    passwd  => '',
+    master  => [
+        {
+            log     => {
+                stack_dump  => 1,
+                stderr      => 1,
+                path        => 'logs/db_master.log',
+                level       => 'warn',
+            },
+        }
+    ],
+    slave   => [
+        {
+            log     => {
+                stack_dump  => 1,
+                stderr      => 1,
+                path        => 'logs/db_slave.log',
+                level       => 'warn',
+            },
+        },
+    ],
+}

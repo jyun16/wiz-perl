@@ -1,0 +1,8 @@
+hoge = HOGE
+fuga = FUGA
+# comment 1 
+    # comment 2   
+foo = 'FOO'
+bar = "BAR"
+nonvalue1 = #whoooooooooo
+nonvalue2 = 

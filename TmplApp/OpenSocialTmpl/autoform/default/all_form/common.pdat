@@ -1,0 +1,300 @@
+{
+    '&id'          => {
+        item_label  => 'ID',
+        type        => 'text',
+    },
+    '&userid' => {
+        item_label  => 'USERID',
+        type        => 'text',
+    },
+    '&member_id' => {
+        item_label  => 'MEMBER_ID',
+        type        => 'text',
+        attribute   => {
+            size        => 32,
+            maxlength   => 32,
+        },
+    },
+    '&text' => {
+        item_label  => 'TEXT 1',
+        type        => 'text',
+        default     => '',
+        attribute   => {
+            size        => 32,
+            maxlength   => 32,
+        },
+        validation    => {
+        },
+    },
+    '&password' => {
+        item_label  => 'PASSWORD 1',
+        type        => 'password',
+        attribute   => {
+            size        => 20,
+            maxlength   => 20,
+        },
+    },
+    '&textarea' => {
+        item_label  => 'TEXTAREA 1',
+        type        => 'textarea',
+        attribute   => {
+            cols        => 80,
+            rows        => 6,
+        },
+        validation    => {
+        },
+        filter  => [
+            line_break  => 1,
+            auto_link   => {
+                target  => "_blank",
+            },
+        ],
+    },
+    '&select1' => {
+        item_label  => 'SELECT BOX 1',
+        type        => 'select',
+        default     => 0,
+        options     => [
+            ''  => 'SELECT VOID',
+            0   => 'SELECT 0',
+            1   => 'SELECT 1',
+            2   => 'SELECT 2',
+            3   => 'SELECT 3',
+        ],
+        attribute   => {
+        }
+    },
+    '&multi_select' => {
+        item_label  => 'MULTI SELECT BOX 1',
+        type        => 'multiselect',
+        options     => [
+            ''  => 'MULTI SELECT VOID',
+            0   => 'MULTI SELECT 0',
+            1   => 'MULTI SELECT 1',
+            2   => 'MULTI SELECT 2',
+            3   => 'MULTI SELECT 3',
+        ],
+        attribute   => {
+            size        => '5',
+        }
+    },
+    '&radio1'   => {
+        item_label  => 'RADIO BUTTON 1',
+        type        => 'radio',
+        options     => [
+            ''  => 'RADIO VOID',
+            0   => 'RADIO 0',
+            1   => 'RADIO 1',
+            2   => 'RADIO 2',
+            3   => 'RADIO 3',
+        ],
+        attribute   => [{}, {}, { id => 'hoge' }, {}, {}],
+    },
+    '&radio2'   => {
+        item_label  => 'RADIO BUTTON 2',
+        type        => 'radio',
+        options     => [
+            ''  => 'RADIO VOID',
+            0   => 'RADIO 0',
+            1   => 'RADIO 1',
+            2   => 'RADIO 2',
+            3   => 'RADIO 3',
+        ],
+        split       => 1,
+        attribute   => { id => 'hoge' },
+    },
+    '&checkbox' => {
+        item_label  => 'CHECKBOX 1',
+        type        => 'checkbox',
+        options     => [
+            ''  => 'CHECKBOX VOID',
+            0   => 'CHECKBOX 0',
+            1   => 'CHECKBOX 1',
+            2   => 'CHECKBOX 2',
+            3   => 'CHECKBOX 3',
+        ],
+        attribute   => [{}, {}, { id => 'hoge' }, {}, {}],
+    },
+    '&email'   => {
+        item_label  => 'E-MAIL',
+        type        => 'email',
+    },
+    '&confirm_email'   => {
+        item_label  => 'E-MAIL',
+        type        => 'email',
+        validation    => {
+            equals  => 'email',
+        },
+    },
+    '&first_name'   => {
+        item_label  => 'FIRST NAME',
+        type        => 'text',
+    },
+    '&last_name'    => {
+        item_label  => 'LAST NAME',
+        type        => 'text',
+    },
+    '&name'     => {
+        item_label  => 'NAME',
+        type        => 'text',
+        joined_value    => [qw(first_name last_name)],
+        validation    => {
+        },
+    },
+    '&date1'    => {
+        item_label      => 'DATE 1',
+        type            => 'datetime',
+        date_only       => 1,
+#        default         => 'now',
+        year_order      => 'asc',
+        start_year      => 'now',
+        end_year        => 'now',
+        format          => '',
+        empty           => '-',
+        attribute   => {
+        },
+        validation    => {
+            smaller     => 'date2',
+        },
+        attribute   => [
+            {  
+                id  => 'date1_y',
+            },
+            {  
+                id  => 'date1_m',
+            },
+            {  
+                id  => 'date1_d',
+            },
+        ],
+    },
+    '&date2'    => {
+        item_label      => 'DATE 1',
+        type            => 'datetime',
+        date_only       => 1,
+#        default         => '1975-06-11',
+        year_order      => 'desc',
+        start_year      => 1941,
+        end_year        => 'now',
+        format          => '',
+        empty           => '-',
+        attribute   => {
+        },
+        validation    => {
+            bigger  => 'date1',
+            #smaller => 'date1',
+        },
+        attribute   => [
+            {  
+                id  => 'date2_y',
+            },
+            {  
+                id  => 'date2_m',
+            },
+            {  
+                id  => 'date2_d',
+            },
+        ],
+    },
+    '&time1'   => {
+        item_label      => 'TIME 1',
+        type            => 'datetime',
+        time_only       => 1,
+        # can set 'now' or yyyy-mm-dd hh:MM:ss
+        default         => undef,
+        # default ASC
+        empty           => '-',
+        year_order      => 'desc',
+        start_year      => 1999,
+        # or now
+        end_year        => 2008,
+        attribute   => {
+        },
+        validation    => {
+        },
+        filter          => [
+            datetime => {
+                format  => '%H%M%S',
+            },
+        ],
+        attribute   => [
+            {  
+                id  => 'time1_h',
+            },
+            {  
+                id  => 'time1_mi',
+            },
+            {  
+                id  => 'time1_s',
+            },
+        ],
+    },
+    '&datetime1'   => {
+        item_label      => 'DATETIME 1',
+        type            => 'datetime',
+        default         => undef,
+        year_order      => 'asc',
+        start_year      => 1941,
+        end_year        => 2012,
+        format          => '',
+        empty           => '-',
+        attribute   => {
+        },
+        validation    => {
+        },
+        attribute   => [
+            {  
+                id  => 'datetime1_y',
+            },
+            {  
+                id  => 'datetime1_m',
+            },
+            {  
+                id  => 'datetime1_d',
+            },
+            {  
+                id  => 'datetime1_h',
+            },
+            {  
+                id  => 'datetime1_mi',
+            },
+            {  
+                id  => 'datetime1_s',
+            },
+        ],
+    },
+    '&created_time'   => {
+        item_label      => '作成日',
+        type            => 'datetime',
+        default         => undef,
+        year_order      => 'asc',
+        start_year      => 2010,
+        end_year        => 2027,
+        format          => '',
+        empty           => '-',
+        attribute   => {
+        },
+        validation    => {
+        },
+        attribute   => [
+            {
+                id  => 'created_time_y',
+            },
+            {
+                id  => 'created_time_m',
+            },
+            {
+                id  => 'created_time_d',
+            },
+            {
+                id  => 'created_time_h',
+            },
+            {
+                id  => 'created_time_mi',
+            },
+            {
+                id  => 'created_time_s',
+            },
+        ],
+    },
+}
