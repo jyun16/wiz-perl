@@ -106,9 +106,10 @@ sub get_ln_test {
 }
 
 sub camel2normal_test {
-    is(camel2normal('Hoge'), 'hoge', q|camel2normal('Hoge')|);
-    is(camel2normal('HogeFuga'), 'hoge_fuga', q|camel2normal('HogeFuga')|);
-    is(camel2normal('HogeFugaFoo'), 'hoge_fuga_foo', q|camel2normal('HogeFugaFoo')|);
+    is(camel2normal('hoge'), 'hoge', q|camel2normal('hoge')|);
+    is(camel2normal('hogeFuga'), 'hoge_fuga', q|camel2normal('hogeFuga')|);
+    is(camel2normal('hoge001'), 'hoge001', q|camel2normal('hoge001')|);
+    is(camel2normal('hogeFugaFoo'), 'hoge_fuga_foo', q|camel2normal('hogeFugaFoo')|);
     my $str = 'FooBar';
     camel2normal(\$str);
     is($str, 'foo_bar', q|camel2normal(\$str)|);
