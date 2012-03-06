@@ -49,6 +49,7 @@ our $VERSION = '1.0';
  named_format
  convert
  split_csv
+ regexp_meta_escape
 
 =cut
 
@@ -88,6 +89,7 @@ use Wiz::ConstantExporter [qw(
     named_format
     convert
     split_csv
+    regexp_meta_escape
 )]; 
 
 =head1 FUNCTIONS
@@ -242,13 +244,13 @@ Change notation type Camel to joined by under line.
 sub camel2normal {
     my $str = shift;
     if (ref $str) {
-        $$str =~s/([A-Z]+[a-z]+)/$1_/g;
+        $$str =~s/([a-z0-9]+)/$1_/g;
         $$str =~s/_$//;
         $$str = lc $$str;
         return;
     }
     else {
-        $str =~s/([A-Z]+[a-z]+)/$1_/g;
+        $str =~s/([a-z0-9]+)/$1_/g;
         $str =~s/_$//;
         $str = lc $str;
         return $str;
@@ -270,7 +272,19 @@ sub normal2camel {
 =cut
 
 sub pascal2normal {
-    return camel2normal(shift);
+    my $str = shift;
+    if (ref $str) {
+        $$str =~s/([A-Z]+[a-z]+)/$1_/g;
+        $$str =~s/_$//;
+        $$str = lc $$str;
+        return;
+    }
+    else {
+        $str =~s/([A-Z]+[a-z]+)/$1_/g;
+        $str =~s/_$//;
+        $str = lc $str;
+        return $str;
+    }
 }
 
 =head2 $str = normal2pascal($str)
@@ -421,6 +435,14 @@ sub split_csv {
     $data =~ s/""/"/g;
     my @ret = split /$;/, $data;
     return wantarray ? @ret : \@ret;
+}
+
+sub regexp_meta_escape {
+    my ($re) = @_;
+    my $rf = 0;
+    unless (ref $re) { $re = \$re; $rf = 1; }
+    $$re =~ s/([\$\[\]^?+*])/\\$1/g;
+    return $rf ? $$re : undef;
 }
 
 =head1 AUTHOR
