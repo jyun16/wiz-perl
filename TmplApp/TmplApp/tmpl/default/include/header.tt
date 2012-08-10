@@ -18,7 +18,7 @@
         <a href="[% base %]member/invite/index">ユーザー登録[invite形式]</a>&nbsp;or&nbsp;
         <a href="[% base %]member/register/index">ユーザー登録</a>&nbsp;or&nbsp;
         <a href="[% base %]login">ログイン</a>
-    [% ELSE -%]
+    [% END -%]
 [% END -%]
 </div>
 <br class="clearfix" />

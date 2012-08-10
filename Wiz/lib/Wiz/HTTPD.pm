@@ -191,10 +191,13 @@ sub _read_data {
 sub _create_request {
     my $self = shift;
     my ($req_data, $info) = @_;
+
     my $parser = new HTTP::Parser(request => 1);
     if ($parser->add($req_data) == 0) {
         my $req = $parser->request;
         bless $req, 'Wiz::HTTP::Request';
+        my $uri = $req->uri;
+        if ($uri =~ m#^///#) { $uri =~ s#^//##; $req->uri($uri); }
         $req->scheme('http');
         my ($host, $port);
         if ($req->header('x-forwarded-host')) {

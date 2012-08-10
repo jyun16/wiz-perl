@@ -81,7 +81,7 @@ $(function () {
 });
 </script>
 [% END -%]
-<link rel="stylesheet" type="text/css" href="[% base %]css/main.css" />
-<link rel="shortcut icon" href="[% base %]favicon.ico" />
 <link rel="icon" href="[% base %]favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="[% base %]favicon.ico" />
+<link rel="stylesheet" type="text/css" href="[% base %]css/main.css" />
 <title>[% html.title %]</title>

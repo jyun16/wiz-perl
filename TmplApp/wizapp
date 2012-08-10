@@ -1,5 +1,5 @@
 #!/usr/bin/perl
 
-my $tmpl_app_dir = '/var/work/perl/catalyst/wizapp/TmplApp';
+my $tmpl_app_dir = '/work/perl/wiz-perl/TmplApp';
 
 print `$tmpl_app_dir/wizapp.pl -t $tmpl_app_dir/TmplApp @ARGV`;
