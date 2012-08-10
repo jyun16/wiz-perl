@@ -53,51 +53,51 @@ sub count_test {
     $query->clear;
 
     is $query->count(-limit => [ 0, 10 ], -order => [qw(hoge)]),
-        qq|SELECT COUNT(*) AS COUNT FROM $conf{table}|,
+        qq|SELECT COUNT(*) AS count FROM $conf{table}|,
         'count';
 
     $query->clear;
     is $query->count(fields => 'hoge', where => { id => 'xxx' }), 
-        qq|SELECT COUNT(hoge) AS COUNT FROM $conf{table} WHERE id=?|,
+        qq|SELECT COUNT(hoge) AS count FROM $conf{table} WHERE id=?|,
         q|count(fields => 'hoge', where => { id => 'xxx' })|;
 
     $query->clear;
     is $query->count({ fields => 'hoge', where => { id => 'xxx' } }), 
-        qq|SELECT COUNT(hoge) AS COUNT FROM $conf{table} WHERE id=?|,
+        qq|SELECT COUNT(hoge) AS count FROM $conf{table} WHERE id=?|,
         q|count({ fields => 'hoge', where => { id => 'xxx' } })|;
 
     $query->clear;
     is $query->count(fields => 'hoge', where => new Wiz::DB::SQL::Where::MySQL({ id => 'xxx' })), 
-        qq|SELECT COUNT(hoge) AS COUNT FROM $conf{table} WHERE id=?|,
+        qq|SELECT COUNT(hoge) AS count FROM $conf{table} WHERE id=?|,
         q|count(fields => 'hoge', where => new Wiz::DB::SQL::Where::MySQL({ id => 'xxx' }))|;
 
     is_deeply $query->values, [qw(xxx)], q|values|;
 
     $query->clear;
     is $query->count({ id => 'xxx' }), 
-        qq|SELECT COUNT(*) AS COUNT FROM $conf{table} WHERE id=?|,
+        qq|SELECT COUNT(*) AS count FROM $conf{table} WHERE id=?|,
         q|count(id => 'xxx')|;
 
     $query->clear;
     is $query->count(new Wiz::DB::SQL::Where::MySQL({ id => 'xxx' })), 
-        qq|SELECT COUNT(*) AS COUNT FROM $conf{table} WHERE id=?|,
+        qq|SELECT COUNT(*) AS count FROM $conf{table} WHERE id=?|,
         q|count(new Wiz::DB::SQL::Where::MySQL({ id => 'xxx' }))|;
 
     $query->clear;
     is $query->count([ -and => [[qw(!= hoge HOGE)]]]),
-        qq|SELECT COUNT(*) AS COUNT FROM $conf{table} WHERE hoge!=?|,
+        qq|SELECT COUNT(*) AS count FROM $conf{table} WHERE hoge!=?|,
         q|count([ -and => [[qw(!= hoge HOGE)]]])|;
 
     is_deeply $query->values, [qw(HOGE)], q|values|;
 
     $query->clear;
     is $query->count([ -and => [['not like', 'hoge', 'HOGE']]]),
-        qq|SELECT COUNT(*) AS COUNT FROM $conf{table} WHERE hoge not like ?|,
+        qq|SELECT COUNT(*) AS count FROM $conf{table} WHERE hoge not like ?|,
         q|count([ -and => [['not like', 'hoge', 'HOGE']]])|;
 
     $query->clear;
     is $query->count_dump([ -and => [['not like', 'hoge', 'HOGE']]]),
-        qq|SELECT COUNT(*) AS COUNT FROM wiz_db_test_table WHERE hoge not like 'HOGE'|,
+        qq|SELECT COUNT(*) AS count FROM wiz_db_test_table WHERE hoge not like 'HOGE'|,
         q|count_dump([ -and => [['not like', 'hoge', 'HOGE']]])|;
 
     is_deeply $query->values, [qw(HOGE)], q|values|;
