@@ -128,8 +128,7 @@ no warnings 'uninitialized';
 
 BEGIN {
     no strict 'refs';
-
-    for my $m qw(common error system system_error validation) {
+    for my $m (qw(common error system system_error validation)) {
     *{ sprintf '%s::%s', __PACKAGE__, $m } =
         sub {
             my $self = shift;
